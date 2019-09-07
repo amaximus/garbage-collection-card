@@ -18,7 +18,7 @@ If you are not using HACS, you may download garbage-collection-card.js and put i
 Add the following lines to your ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 ```
 resources:
-  - {type: module, url: '/www/community/garbage-collector-card/garbage-collector-card.js'}
+  - {type: module, url: '/www/community/garbage-collection-card/garbage-collection-card.js'}
 
     cards:
       - type: custom:garbage-collection-card
