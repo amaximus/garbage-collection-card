@@ -15,7 +15,12 @@ search for <i>garbage</i> and select Garbage Collection Card from Plugins.<br />
 If you are not using HACS, you may download garbage-collection-card.js and put it into $homeassistant_config_dir/www.<br />
 
 #### Lovelace UI configuration
-Add the following lines to your ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+Configuration parameters:
+
+**entity** (required): name of the sensor of garbage_collection platform.
+**icon_size** (optional): size of the icon. Defaults to 25px.
+
+Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 ```
 resources:
   - {type: module, url: '/www/community/garbage-collector-card/garbage-collection-card.js'}
@@ -23,9 +28,12 @@ resources:
     cards:
       - type: custom:garbage-collection-card
         entity: sensor.waste
+        icon_size: 35px
       - type: custom:garbage-collection-card
         entity: sensor.selective_waste
 ```
-
-Lovelace UI:<br />
+Normal card:<br />
 ![Garbage Collection card example](garbage_collection_lovelace.jpg)
+Alerted, different icon sizes:<br />
+![Alerted, different icon sizes](garbage_collection_alerted_difsize.jpg)
+

@@ -5,7 +5,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
-  version() { return "0.1.0"; }
+  version() { return "0.2.0"; }
 
   _getAttributes(hass, filter1) {
     var next_date = '';
@@ -102,9 +102,13 @@ class GarbageCollectionCard extends HTMLElement {
     if (root.lastChild) root.removeChild(root.lastChild);
 
     const cardConfig = Object.assign({}, config);
+
     const card = document.createElement('ha-card');
     const content = document.createElement('div');
     const style = document.createElement('style');
+    let icon_size = config.icon_size;
+    if (typeof icon_size === "undefined") icon_size="25px"
+
     style.textContent = `
       table {
         width: 70%;
@@ -117,6 +121,10 @@ class GarbageCollectionCard extends HTMLElement {
       }
       .alerted {
         color: #cc0000;
+      }
+      iron-icon {
+        --iron-icon-height: ${icon_size};
+        --iron-icon-width: ${icon_size};
       }
       .emp {
         font-size: 130%;
@@ -158,7 +166,7 @@ class GarbageCollectionCard extends HTMLElement {
 
     let attributes = this._getAttributes(hass, config.entity.split(".")[1]);
 
-    this._updateContent(root.getElementById('attributes'), attributes);
+    this._updateContent(root.getElementById('attributes'), attributes );
   }
 
   getCardSize() {
