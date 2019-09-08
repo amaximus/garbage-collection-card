@@ -20,6 +20,7 @@ Configuration parameters:
 **icon_size** (optional): size of the icon. Defaults to 25px.
 <p>
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+
 ```
 resources:
   - {type: module, url: '/www/community/garbage-collection-card/garbage-collection-card.js'}
