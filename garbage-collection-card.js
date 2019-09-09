@@ -108,6 +108,8 @@ class GarbageCollectionCard extends HTMLElement {
     const style = document.createElement('style');
     let icon_size = config.icon_size;
     if (typeof icon_size === "undefined") icon_size="25px"
+    let icon_color = config.icon_color;
+    if (typeof icon_color === "undefined") icon_color="black"
 
     style.textContent = `
       table {
@@ -120,11 +122,12 @@ class GarbageCollectionCard extends HTMLElement {
         text-align: center;
       }
       .alerted {
-        color: #cc0000;
+        --iron-icon-fill-color: #cc0000;
       }
       iron-icon {
         --iron-icon-height: ${icon_size};
         --iron-icon-width: ${icon_size};
+        --iron-icon-fill-color: ${icon_color};
       }
       .emp {
         font-size: 130%;

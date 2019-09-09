@@ -17,7 +17,8 @@ If you are not using HACS, you may download garbage-collection-card.js and put i
 Configuration parameters:<br />
 <p>
 **entity** (required): name of the sensor of garbage_collection platform.<br />
-**icon_size** (optional): size of the icon. Defaults to 25px.
+**icon_size** (optional): size of the icon. Defaults to 25px.<br />
+**icon_color** (optional): icon color. Accepts both color names or RGB values. Defaults to black.
 <p>
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 
@@ -29,8 +30,10 @@ resources:
       - type: custom:garbage-collection-card
         entity: sensor.selective_waste
         icon_size: 35px
+        icon_color: green
       - type: custom:garbage-collection-card
         entity: sensor.waste
+        icon_color: '#0561ba'
 ```
 
 Normal card:<br />
