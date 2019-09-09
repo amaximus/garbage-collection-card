@@ -7,6 +7,12 @@ class GarbageCollectionCard extends HTMLElement {
 
   version() { return "0.2.0"; }
 
+  _label(label, fallback = 'unknown') {
+    const lang = this.myhass.selectedLanguage || this.myhass.language;
+    const resources = this.myhass.resources[lang];
+    return (resources && resources[label] ? resources[label] : fallback);
+  }
+
   _getAttributes(hass, filter1) {
     var next_date = '';
     var days = '';
@@ -110,6 +116,8 @@ class GarbageCollectionCard extends HTMLElement {
     if (typeof icon_size === "undefined") icon_size="25px"
     let icon_color = config.icon_color;
     if (typeof icon_color === "undefined") icon_color="black"
+    let due_color = config.due_color;
+    if (typeof due_color === "undefined") due_color="red"
 
     style.textContent = `
       table {
@@ -119,19 +127,21 @@ class GarbageCollectionCard extends HTMLElement {
       }
       td {
         font-size: 120%;
-        text-align: center;
+        text-align: left;
       }
-      .alerted {
-        --iron-icon-fill-color: #cc0000;
+      .tdicon {
+        text-align: center;
       }
       iron-icon {
         --iron-icon-height: ${icon_size};
         --iron-icon-width: ${icon_size};
         --iron-icon-fill-color: ${icon_color};
       }
+      .alerted {
+        --iron-icon-fill-color: ${due_color};
+      }
       .emp {
         font-size: 130%;
-        text-align: left;
       }
       .name {
         text-align: left;
@@ -149,15 +159,19 @@ class GarbageCollectionCard extends HTMLElement {
     this._config = cardConfig;
   }
 
-  _updateContent(element, attributes) {
+  _updateContent(element, attributes, hdate, hdays) {
     element.innerHTML = `
       ${attributes.map((attribute) => `
         <tr>
-          <td><iron-icon icon="${attribute.icon}" class="${attribute.alerted}"></td>
+          <td rowspan=2 class="tdicon"><iron-icon icon="${attribute.icon}" class="${attribute.alerted}"></td>
           <td class="name"><span class="emp">${attribute.friendly_name}</span></td>
         </tr>
         <tr>
-          <td colspan=2>on ${attribute.next_date}, in ${attribute.days} days</td>
+          <td>
+            ${hdate == "true" ? `${attribute.next_date}` + ", " : ''}
+            ${hdays == "true" ? " " + `${this._label('ui.components.relative_time.future.In', 'in')}` +
+                                " " + `${attribute.days}` + " " + `${this._label('ui.duration.days', 'days')}` : '' }
+          </td>
         </tr>
       `).join('')}
     `;
@@ -166,10 +180,16 @@ class GarbageCollectionCard extends HTMLElement {
   set hass(hass) {
     const config = this._config;
     const root = this.shadowRoot;
+    this.myhass = hass;
+
+    let hide_date = config.hide_date;
+    if (typeof hide_date === "undefined") hide_date="true"
+    let hide_days = config.hide_days;
+    if (typeof hide_days === "undefined") hide_days="true"
 
     let attributes = this._getAttributes(hass, config.entity.split(".")[1]);
 
-    this._updateContent(root.getElementById('attributes'), attributes );
+    this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days );
   }
 
   getCardSize() {

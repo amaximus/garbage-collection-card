@@ -14,11 +14,14 @@ search for <i>garbage</i> and select Garbage Collection Card from Plugins.<br />
 If you are not using HACS, you may download garbage-collection-card.js and put it into homeassistant_config_dir/www.<br />
 
 #### Lovelace UI configuration
-Configuration parameters:
+Configuration parameters:<br />
 <p>
 **entity** (required): name of the sensor of garbage_collection platform.<br />
+**due_color** (optional): icon color on day before and on due date. Accepts both color names and RGB values. Defaults to red.<br />
+**icon_color** (optional): icon color. Accepts both color names and RGB values. Defaults to black.<br />
 **icon_size** (optional): size of the icon. Defaults to 25px.<br />
-**icon_color** (optional): icon color. Accepts both color names and RGB values. Defaults to black.
+**hide_date** (optional): hide date. Defaults to false.<br />
+**hide_days** (optional): hide number of days. Defaults to false.<br />
 <p>
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 
@@ -31,6 +34,7 @@ resources:
         entity: sensor.selective_waste
         icon_size: 35px
         icon_color: green
+        hide_date: true
       - type: custom:garbage-collection-card
         entity: sensor.waste
         icon_color: '#0561ba'
@@ -41,3 +45,4 @@ Normal card:<br />
 
 Alerted, different icon sizes:<br />
 ![Alerted, different icon sizes](garbage_collection_alerted_difsize.jpg)
+
