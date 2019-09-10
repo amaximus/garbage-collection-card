@@ -130,8 +130,8 @@ class GarbageCollectionCard extends HTMLElement {
         text-align: left;
       }
       .tdicon {
-        text-align: center;
         padding-left: 35px;
+        width: 60px;
       }
       iron-icon {
         --iron-icon-height: ${icon_size};

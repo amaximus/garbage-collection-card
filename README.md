@@ -43,6 +43,6 @@ resources:
 Normal card:<br />
 ![Garbage Collection card example](garbage_collection_lovelace.jpg)
 
-Alerted, different icon sizes:<br />
-![Alerted, different icon sizes](garbage_collection_alerted_difsize.jpg)
+Different icon sizes:<br />
+![Different icon sizes](garbage_collection_difsize.jpg)
 

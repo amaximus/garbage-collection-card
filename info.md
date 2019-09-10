@@ -1,7 +1,7 @@
 # Lovelace custom card for Garbage Collection
 
 This Lovelace custom card displays garbage collection information provided by
-the Gartbage Collection custom component you may find at
+the Garbage Collection custom component you may find at
 [https://github.com/bruxy70/Garbage-Collection](https://github.com/bruxy70/Garbage-Collection/).<br />
 It will draw your attention the day before the garbage collection by changing the icon color to red.
 
@@ -43,6 +43,6 @@ resources:
 Normal card:<br />
 ![Garbage Collection card example](garbage_collection_lovelace.jpg)
 
-Alerted, different icon sizes:<br />
-![Alerted, different icon sizes](garbage_collection_alerted_difsize.jpg)
+Different icon sizes:<br />
+![Different icon sizes](garbage_collection_difsize.jpg)
 
