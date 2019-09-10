@@ -121,7 +121,7 @@ class GarbageCollectionCard extends HTMLElement {
 
     style.textContent = `
       table {
-        width: 70%;
+        width: 100%;
         margin-left: auto;
         margin-right: auto;
       }
@@ -131,6 +131,7 @@ class GarbageCollectionCard extends HTMLElement {
       }
       .tdicon {
         text-align: center;
+        padding-left: 35px;
       }
       iron-icon {
         --iron-icon-height: ${icon_size};
