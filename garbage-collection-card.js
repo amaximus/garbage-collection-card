@@ -169,8 +169,8 @@ class GarbageCollectionCard extends HTMLElement {
         </tr>
         <tr>
           <td>
-            ${hdate == "true" ? `${attribute.next_date}` + ", " : ''}
-            ${hdays == "true" ? " " + `${this._label('ui.components.relative_time.future.In', 'in')}` +
+            ${hdate === false ? `${attribute.next_date}` : ''}
+            ${hdays === false ? " " + `${this._label('ui.components.relative_time.future.In', 'in')}` +
                                 " " + `${attribute.days}` + " " + `${this._label('ui.duration.days', 'days')}` : '' }
           </td>
         </tr>
@@ -183,10 +183,10 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     this.myhass = hass;
 
-    let hide_date = config.hide_date;
-    if (typeof hide_date === "undefined") hide_date="true"
-    let hide_days = config.hide_days;
-    if (typeof hide_days === "undefined") hide_days="true"
+    let hide_date = false;
+    if (typeof config.hide_date != "undefined") hide_date=config.hide_date
+    let hide_days = false;
+    if (typeof config.hide_days != "undefined") hide_days=config.hide_days
 
     let attributes = this._getAttributes(hass, config.entity.split(".")[1]);
 
