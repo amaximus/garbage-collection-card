@@ -160,7 +160,7 @@ class GarbageCollectionCard extends HTMLElement {
     this._config = cardConfig;
   }
 
-  _updateContent(element, attributes, hdate, hdays) {
+  _updateContent(element, attributes, hdate, hdays, hcard) {
     element.innerHTML = `
       ${attributes.map((attribute) => `
         <tr>
@@ -176,6 +176,8 @@ class GarbageCollectionCard extends HTMLElement {
         </tr>
       `).join('')}
     `;
+
+    this.style.display = hcard?"none":"block";
   }
 
   set hass(hass) {
@@ -187,10 +189,19 @@ class GarbageCollectionCard extends HTMLElement {
     if (typeof config.hide_date != "undefined") hide_date=config.hide_date
     let hide_days = false;
     if (typeof config.hide_days != "undefined") hide_days=config.hide_days
+    let hide_card = false;
+    let hide_before = -1;
+    if (typeof config.hide_before != "undefined") hide_before=config.hide_before
 
     let attributes = this._getAttributes(hass, config.entity.split(".")[1]);
+    if (hide_before>-1) {
+      let iDays = parseInt(attributes[0].days,10);
+      if (iDays > hide_before) {
+        hide_card = true;
+      }
+    }
 
-    this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days );
+    this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card );
   }
 
   getCardSize() {
