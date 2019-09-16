@@ -22,6 +22,7 @@ Configuration parameters:<br />
 **icon_size** (optional): size of the icon. Defaults to 25px.<br />
 **hide_date** (optional): hide date. Defaults to false.<br />
 **hide_days** (optional): hide number of days. Defaults to false.<br />
+**hide_before** (optional): hide entire card until x days before event.  Defaults to not hiding card.<br />
 <p>
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 
@@ -39,6 +40,7 @@ resources:
         hide_date: true
       - type: custom:garbage-collection-card
         entity: sensor.waste
+        hide_before: 4
         icon_color: '#0561ba'
 ```
 
