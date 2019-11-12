@@ -201,6 +201,13 @@ class GarbageCollectionCard extends HTMLElement {
       }
     }
 
+    this._stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
+    if ( isNaN(this._stateObj.state) ) {
+      hide_days = true;
+      hide_date = true;
+      attributes[0].next_date = this._stateObj.state;
+    }
+
     this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card );
   }
 

@@ -24,6 +24,9 @@ Configuration parameters:<br />
 **hide_days** (optional): hide number of days. Defaults to false.<br />
 **hide_before** (optional): hide entire card until x days before event.  Defaults to not hiding card.<br />
 <p>
+When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
+taking the information from the sensor's verbose_format.
+<p>
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 
 ```
