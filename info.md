@@ -3,7 +3,7 @@
 This Lovelace custom card displays garbage collection information provided by
 the Garbage Collection custom component you may find at
 [https://github.com/bruxy70/Garbage-Collection](https://github.com/bruxy70/Garbage-Collection/).<br />
-It will draw your attention the day before the garbage collection by changing the icon color to red.
+It will draw your attention the day before the garbage collection by changing the icon color to red by default.
 
 Lovelace UI does not support platform attributes natively.<br />
 Implementation of handling attributes in Lovelace was inspired by [entity-attributes-card](https://github.com/custom-cards/entity-attributes-card).
@@ -22,6 +22,8 @@ Configuration parameters:<br />
 **icon_size** (optional): size of the icon. Defaults to 25px.<br />
 **hide_date** (optional): hide date. Defaults to false.<br />
 **hide_days** (optional): hide number of days. Defaults to false.<br />
+**title_size** (optional): font size for the sensor's friendly name.  Defaults to 17px.<br />
+**details_size** (optional): font size for the date and number of days.  Defaults to 14px.<br />
 <p>
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 taking the information from the sensor's verbose_format.
@@ -43,9 +45,9 @@ resources:
         icon_color: '#0561ba'
 ```
 
-Normal card:<br />
+Basic card:<br />
 ![Garbage Collection card example](garbage_collection_lovelace.jpg)
 
-Different icon sizes:<br />
+Different icon sizes and colors:<br />
 ![Different icon sizes](garbage_collection_difsize.jpg)
 
