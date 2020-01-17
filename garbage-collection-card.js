@@ -1,3 +1,4 @@
+
 class GarbageCollectionCard extends HTMLElement {
 
   constructor() {
@@ -213,7 +214,19 @@ class GarbageCollectionCard extends HTMLElement {
     if ( isNaN(this._stateObj.state) ) {
       hide_days = true;
       hide_date = false;
-      attributes[0].next_date = this._stateObj.state;
+
+      const translationLocal = "/local/community/garbage-collection-card/translations/" + hass.language + ".json";
+      var rawFile = new XMLHttpRequest();
+   // rawFile.responseType = 'json';
+      rawFile.overrideMimeType("application/json");
+      rawFile.open("GET", translationLocal, false);
+      rawFile.send(null);
+      if ( rawFile.status != 200 ) {
+        attributes[0].next_date = this._stateObj.state;
+      } else {
+        var translationJSONobj = JSON.parse(rawFile.responseText);
+        attributes[0].next_date = translationJSONobj.state[this._stateObj.state];
+      }
     }
 
     this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card );
@@ -222,6 +235,7 @@ class GarbageCollectionCard extends HTMLElement {
   getCardSize() {
     return 1;
   }
+
 }
 
 customElements.define('garbage-collection-card', GarbageCollectionCard);
