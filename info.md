@@ -11,7 +11,8 @@ Implementation of handling attributes in Lovelace was inspired by [entity-attrib
 #### Installation
 The easiest way to install it is through [HACS (Home Assistant Community Store)](https://custom-components.github.io/hacs/),
 search for <i>garbage</i> and select Garbage Collection Card from Plugins.<br />
-If you are not using HACS, you may download garbage-collection-card.js and put it into homeassistant_config_dir/www.<br />
+If you are not using HACS, you may download garbage-collection-card.js and the translations directory and put them into
+homeassistant_config_dir/www/community/garbage-collection-card/ directory.<br />
 
 #### Lovelace UI configuration
 Configuration parameters:<br />
