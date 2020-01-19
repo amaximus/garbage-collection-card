@@ -224,8 +224,16 @@ class GarbageCollectionCard extends HTMLElement {
       if ( rawFile.status != 200 ) {
         attributes[0].next_date = this._stateObj.state;
       } else {
-        var translationJSONobj = JSON.parse(rawFile.responseText);
-        attributes[0].next_date = translationJSONobj.state[this._stateObj.state];
+        if ( attributes[0].days > 1 ) {
+          attributes[0].next_date = this._stateObj.state;
+        } else {
+          var translationJSONobj = JSON.parse(rawFile.responseText);
+          if ( typeof translationJSONobj != "undefined" ) {
+            attributes[0].next_date = translationJSONobj.state[this._stateObj.state];
+          } else {
+            attributes[0].next_date = this._stateObj.state;
+          }
+        }
       }
     }
 
