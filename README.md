@@ -1,3 +1,6 @@
+<a href="https://www.buymeacoffee.com/6rF5cQl" target="_blank" rel="nofollow">
+<img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+
 # Lovelace custom card for Garbage Collection
 
 This Lovelace custom card displays garbage collection information provided by
