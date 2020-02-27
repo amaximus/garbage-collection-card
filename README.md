@@ -1,5 +1,5 @@
 <a href="https://www.buymeacoffee.com/6rF5cQl" target="_blank" rel="nofollow">
-<img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
+<img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 25px !important;width: 108px !important;" ></a>
 
 # Lovelace custom card for Garbage Collection
 
