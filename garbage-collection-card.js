@@ -86,6 +86,9 @@ class GarbageCollectionCard extends HTMLElement {
       }
     });
     if ( days < 2 ) {
+	alerted='alerted_1';
+    }
+    if ( days < 1 ) {
 	alerted='alerted';
     }
 
@@ -119,6 +122,8 @@ class GarbageCollectionCard extends HTMLElement {
     if (typeof icon_color === "undefined") icon_color="black"
     let due_color = config.due_color;
     if (typeof due_color === "undefined") due_color="red"
+    let due_1_color = config.due_1_color;
+    if (typeof due_1_color === "undefined") due_1_color=due_color
     let details_size = config.details_size;
     if (typeof details_size === "undefined") details_size="14px"
     let title_size = config.title_size;
@@ -145,6 +150,9 @@ class GarbageCollectionCard extends HTMLElement {
       }
       .alerted {
         --iron-icon-fill-color: ${due_color};
+      }
+      .alerted_1 {
+        --iron-icon-fill-color: ${due_1_color};
       }
       .details {
         font-size: ${details_size}

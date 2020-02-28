@@ -20,7 +20,8 @@ homeassistant_config_dir/www/community/garbage-collection-card/ directory.<br />
 Configuration parameters:<br />
 <p>
 **entity** (required): name of the sensor of garbage_collection platform.<br />
-**due_color** (optional): icon color on day before and on due date. Accepts both color names and RGB values. Defaults to red.<br />
+**due_color** (optional): icon color on due date. Accepts both color names and RGB values. Defaults to red.<br />
+**due_1_color** (optional): icon color on the day before due date. Accepts both color names and RGB values. Defaults to due_color.<br />
 **icon_color** (optional): icon color. Accepts both color names and RGB values. Defaults to black.<br />
 **icon_size** (optional): size of the icon. Defaults to 25px.<br />
 **hide_date** (optional): hide date. Defaults to false.<br />
