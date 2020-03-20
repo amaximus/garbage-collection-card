@@ -223,7 +223,7 @@ class GarbageCollectionCard extends HTMLElement {
       hide_days = true;
       hide_date = false;
 
-      const translationLocal = "/local/community/garbage-collection-card/translations/" + hass.language + ".json";
+      const translationLocal = "/local/community/garbage-collection-card/" + hass.language + ".json";
       var rawFile = new XMLHttpRequest();
    // rawFile.responseType = 'json';
       rawFile.overrideMimeType("application/json");
