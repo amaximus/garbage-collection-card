@@ -38,9 +38,9 @@ Please find below an example of ui-lovelace.yaml (entity should be the sensor of
 ```
 resources:
   *When using HACS installation method
-  - {type: module, url: '/community_plugin/garbage-collection-card/garbage-collection-card.js'}
+  - {type: js, url: '/community_plugin/garbage-collection-card/garbage-collection-card.js'}
   *When using manual install method
-  - {type: module, url: '/local/garbage-collection-card.js'}
+  - {type: js, url: '/local/garbage-collection-card.js'}
     cards:
       - type: custom:garbage-collection-card
         entity: sensor.selective_waste

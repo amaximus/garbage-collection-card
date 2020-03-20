@@ -1,6 +1,5 @@
 {
   "name": "Garbage Collection Card",
-  "zip_release": true,
-  "filename": "garbage-collection-card.zip",
-  "iot_class": "Local Push"
+  "filename": "garbage-collection-card.js",
+  "render_readme": "true"
 }
