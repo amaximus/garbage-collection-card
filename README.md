@@ -18,7 +18,7 @@ homeassistant_config_dir/www/community/garbage-collection-card/ directory.<br />
 
 #### Lovelace UI configuration
 Configuration parameters:<br />
-<p>
+
 **entity** (required): name of the sensor of garbage_collection platform.<br />
 **due_color** (optional): icon color on due date. Accepts both color names and RGB values. Defaults to red.<br />
 **due_1_color** (optional): icon color on the day before due date. Accepts both color names and RGB values. Defaults to due_color.<br />
@@ -29,10 +29,10 @@ Configuration parameters:<br />
 **hide_before** (optional): hide entire card until x days before event.  Defaults to not hiding card.<br />
 **title_size** (optional): font size for the sensor's friendly name.  Defaults to 17px.<br />
 **details_size** (optional): font size for date and number of days.  Defaults to 14px.<br />
-<p>
+
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 taking the information from the sensor's verbose_format.
-<p>
+
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
 
 ```
