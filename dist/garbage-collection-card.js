@@ -146,9 +146,8 @@ class GarbageCollectionCard extends HTMLElement {
         width: 60px;
       }
       ha-icon {
-        height: ${icon_size};
-        width: ${icon_size};
         color: ${icon_color};
+        --mdc-icon-size: ${icon_size};
       }
       .alerted {
         color: ${due_color};
