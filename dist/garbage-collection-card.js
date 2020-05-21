@@ -83,6 +83,8 @@ class GarbageCollectionCard extends HTMLElement {
         case 'icon':
           icon=attributes.get(key).value;
           break;
+        default:
+          break;
       }
     });
     if ( days < 2 ) {
@@ -143,16 +145,16 @@ class GarbageCollectionCard extends HTMLElement {
         padding-left: 35px;
         width: 60px;
       }
-      iron-icon {
-        --iron-icon-height: ${icon_size};
-        --iron-icon-width: ${icon_size};
-        --iron-icon-fill-color: ${icon_color};
+      ha-icon {
+        height: ${icon_size};
+        width: ${icon_size};
+        color: ${icon_color};
       }
       .alerted {
-        --iron-icon-fill-color: ${due_color};
+        color: ${due_color};
       }
       .alerted_1 {
-        --iron-icon-fill-color: ${due_1_color};
+        color: ${due_1_color};
       }
       .details {
         font-size: ${details_size}
@@ -181,7 +183,7 @@ class GarbageCollectionCard extends HTMLElement {
     element.innerHTML = `
       ${attributes.map((attribute) => `
         <tr>
-          <td rowspan=2 class="tdicon"><iron-icon icon="${attribute.icon}" class="${attribute.alerted}"></td>
+          <td rowspan=2 class="tdicon"><ha-icon icon="${attribute.icon}" class="${attribute.alerted}"></td>
           <td class="name"><span class="emp">${attribute.friendly_name}</span></td>
         </tr>
         <tr>
