@@ -1,3 +1,5 @@
+<p><a href="https://www.buymeacoffee.com/6rF5cQl" rel="nofollow" target="_blank"><img src="https://camo.githubusercontent.com/c070316e7fb193354999ef4c93df4bd8e21522fa/68747470733a2f2f696d672e736869656c64732e696f2f7374617469632f76312e7376673f6c6162656c3d4275792532306d6525323061253230636f66666565266d6573736167653d25463025394625413525413826636f6c6f723d626c61636b266c6f676f3d6275792532306d6525323061253230636f66666565266c6f676f436f6c6f723d7768697465266c6162656c436f6c6f723d366634653337" alt="Buy me a coffee" data-canonical-src="https://img.shields.io/static/v1.svg?label=Buy%20me%20a%20coffee&amp;message=%F0%9F%A5%A8&amp;color=black&amp;logo=buy%20me%20a%20coffee&amp;logoColor=white&amp;labelColor=b0c4de" style="max-width:100%;"></a></p>
+
 # Lovelace custom card for Garbage Collection
 
 This Lovelace custom card displays garbage collection information provided by
@@ -24,18 +26,26 @@ Configuration parameters:<br />
 **icon_size** (optional): size of the icon. Defaults to 25px.<br />
 **hide_date** (optional): hide date. Defaults to false.<br />
 **hide_days** (optional): hide number of days. Defaults to false.<br />
+**hide_before** (optional): hide entire card until x days before event.  Defaults to not hiding card.<br />
 **title_size** (optional): font size for the sensor's friendly name.  Defaults to 17px.<br />
-**details_size** (optional): font size for the date and number of days.  Defaults to 14px.<br />
+**details_size** (optional): font size for date and number of days.  Defaults to 14px.<br />
 
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 taking the information from the sensor's verbose_format.
 
-Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+Please add the card to the resources in configuration.yaml:
 
 ```
 resources:
-  - {type: module, url: '/www/community/garbage-collection-card/garbage-collection-card.js'}
+  *When using HACS installation method
+  - {type: js, url: '/hacsfiles/garbage-collection-card/garbage-collection-card.js'}
+  *When using manual install method
+  - {type: js, url: '/local/garbage-collection-card.js'}
+```
 
+Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+
+```
     cards:
       - type: custom:garbage-collection-card
         entity: sensor.selective_waste
@@ -44,6 +54,7 @@ resources:
         hide_date: true
       - type: custom:garbage-collection-card
         entity: sensor.waste
+        hide_before: 4
         icon_color: '#0561ba'
 ```
 
@@ -52,3 +63,4 @@ Basic card:<br />
 
 Different icon sizes and colors:<br />
 ![Different icon sizes](garbage_collection_difsize.jpg)
+

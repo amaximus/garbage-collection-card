@@ -33,14 +33,19 @@ Configuration parameters:<br />
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 taking the information from the sensor's verbose_format.
 
-Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+Please add the card to the resources in configuration.yaml:
 
 ```
 resources:
   *When using HACS installation method
-  - {type: js, url: '/community_plugin/garbage-collection-card/garbage-collection-card.js'}
+  - {type: js, url: '/hacsfiles/garbage-collection-card/garbage-collection-card.js'}
   *When using manual install method
   - {type: js, url: '/local/garbage-collection-card.js'}
+```
+
+Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+
+```
     cards:
       - type: custom:garbage-collection-card
         entity: sensor.selective_waste
