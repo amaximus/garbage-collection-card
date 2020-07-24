@@ -3,10 +3,9 @@ class GarbageCollectionCard extends HTMLElement {
 
   constructor() {
     super();
+    this.llocale = window.navigator.userLanguage || window.navigator.language;
     this.attachShadow({ mode: 'open' });
   }
-
-  version() { return "0.2.0"; }
 
   _label(label, fallback = 'unknown') {
     const lang = this.myhass.selectedLanguage || this.myhass.language;
@@ -72,7 +71,9 @@ class GarbageCollectionCard extends HTMLElement {
 
       switch (newkey) {
         case 'next_date':
-          next_date=attributes.get(key).value.split('T')[0];
+          var date_tmp = new Date(attributes.get(key).value);
+          var options = { year: 'numeric', month: '2-digit', day: '2-digit'};
+          next_date = new Intl.DateTimeFormat(this.llocale, options).format(date_tmp);
           break;
         case 'days':
           days=attributes.get(key).value;

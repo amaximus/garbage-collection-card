@@ -30,6 +30,8 @@ Configuration parameters:<br />
 **title_size** (optional): font size for the sensor's friendly name.  Defaults to 17px.<br />
 **details_size** (optional): font size for date and number of days.  Defaults to 14px.<br />
 
+Garbage collection cards supports some languages and displays the date information based on your locale setting.
+
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 taking the information from the sensor's verbose_format.
 
