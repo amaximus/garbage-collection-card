@@ -224,8 +224,10 @@ class GarbageCollectionCard extends HTMLElement {
     if ( isNaN(this._stateObj.state) ) {
       hide_days = true;
       hide_date = false;
+      attributes[0].next_date = this._stateObj.state;
+    } else {
 
-      const translationLocal = "/local/community/garbage-collection-card/" + hass.language + ".json";
+      const translationLocal = "/hacsfiles/garbage-collection-card/" + hass.language + ".json";
       var rawFile = new XMLHttpRequest();
    // rawFile.responseType = 'json';
       rawFile.overrideMimeType("application/json");
@@ -234,18 +236,13 @@ class GarbageCollectionCard extends HTMLElement {
       if ( rawFile.status != 200 ) {
         attributes[0].next_date = this._stateObj.state;
       } else {
-        if ( attributes[0].days > 1 ) {
-          attributes[0].next_date = this._stateObj.state;
-        } else {
+        if ( attributes[0].days < 2 ) {
           var translationJSONobj = JSON.parse(rawFile.responseText);
           if ( typeof translationJSONobj != "undefined" ) {
-            if ( typeof translationJSONobj.state[this._stateObj.state] != "undefined" ) {
-              attributes[0].next_date = translationJSONobj.state[this._stateObj.state];
-            } else {
-              attributes[0].next_date = this._stateObj.state;
+            var dday = this._stateObj.state == 0 ? "today":"tomorrow";
+            if ( typeof translationJSONobj.state[dday] != "undefined" ) {
+              attributes[0].next_date = translationJSONobj.state[dday];
             }
-          } else {
-            attributes[0].next_date = this._stateObj.state;
           }
         }
       }
