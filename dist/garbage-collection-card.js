@@ -226,16 +226,13 @@ class GarbageCollectionCard extends HTMLElement {
       hide_date = false;
       attributes[0].next_date = this._stateObj.state;
     } else {
-
-      const translationLocal = "/hacsfiles/garbage-collection-card/" + hass.language + ".json";
+      const translationLocal = "/hacsfiles/garbage-collection-card/" + hass.language.substring(0,2) + ".json";
       var rawFile = new XMLHttpRequest();
    // rawFile.responseType = 'json';
       rawFile.overrideMimeType("application/json");
       rawFile.open("GET", translationLocal, false);
       rawFile.send(null);
-      if ( rawFile.status != 200 ) {
-        attributes[0].next_date = this._stateObj.state;
-      } else {
+      if ( rawFile.status == 200 ) {
         if ( attributes[0].days < 2 ) {
           var translationJSONobj = JSON.parse(rawFile.responseText);
           if ( typeof translationJSONobj != "undefined" ) {
