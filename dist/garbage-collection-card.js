@@ -19,6 +19,7 @@ class GarbageCollectionCard extends HTMLElement {
     var friendly_name = '';
     var icon = '';
     var alerted = '';
+    var last_collection = null;
     var routeobjarray = [];
 
     function _filterName(stateObj, pattern) {
@@ -47,6 +48,7 @@ class GarbageCollectionCard extends HTMLElement {
     filters1[1] = {key: "sensor." + filter1 + ".days"};
     filters1[2] = {key: "sensor." + filter1 + ".friendly_name"};
     filters1[3] = {key: "sensor." + filter1 + ".icon"};
+    filters1[4] = {key: "sensor." + filter1 + ".last_collection"};
 
     const attributes = new Map();
     filters1.forEach((filter) => {
@@ -67,13 +69,14 @@ class GarbageCollectionCard extends HTMLElement {
 
     var attr = Array.from(attributes.keys());
     attr.forEach(key => {
+      var date_tmp;
+      var date_option = { year: 'numeric', month: '2-digit', day: '2-digit'};
       var newkey = key.split('.')[2];
 
       switch (newkey) {
         case 'next_date':
-          var date_tmp = new Date(attributes.get(key).value);
-          var options = { year: 'numeric', month: '2-digit', day: '2-digit'};
-          next_date = new Intl.DateTimeFormat(this.llocale, options).format(date_tmp);
+          date_tmp = new Date(attributes.get(key).value);
+          next_date = new Intl.DateTimeFormat(this.llocale, date_option).format(date_tmp);
           break;
         case 'days':
           days=attributes.get(key).value;
@@ -84,15 +87,20 @@ class GarbageCollectionCard extends HTMLElement {
         case 'icon':
           icon=attributes.get(key).value;
           break;
+        case 'last_collection':
+          if ( attributes.get(key).value != "null" ) {
+            last_collection = attributes.get(key).value;
+          }
+          break;
         default:
           break;
       }
     });
     if ( days < 2 ) {
-	alerted='alerted_1';
+      alerted='alerted_1';
     }
     if ( days < 1 ) {
-	alerted='alerted';
+      alerted='alerted';
     }
 
     routeobjarray.push({
@@ -101,6 +109,7 @@ class GarbageCollectionCard extends HTMLElement {
       days: days,
       icon: icon,
       alerted: alerted,
+      last_collection: last_collection,
     });
     return Array.from(routeobjarray.values());
   }
@@ -117,7 +126,7 @@ class GarbageCollectionCard extends HTMLElement {
     const cardConfig = Object.assign({}, config);
 
     const card = document.createElement('ha-card');
-    const content = document.createElement('div');
+    this.content = document.createElement('div');
     const style = document.createElement('style');
     let icon_size = config.icon_size;
     if (typeof icon_size === "undefined") icon_size="25px"
@@ -146,7 +155,7 @@ class GarbageCollectionCard extends HTMLElement {
         padding-left: 35px;
         width: 60px;
       }
-      ha-icon {
+      ha-icon-button {
         color: ${icon_color};
         --mdc-icon-size: ${icon_size};
       }
@@ -167,36 +176,66 @@ class GarbageCollectionCard extends HTMLElement {
         font-size: ${title_size}
       }
     `;
-    content.innerHTML = `
+    this.content.innerHTML = `
       <table>
         <tbody id='attributes'>
+        <tr>
+          <td rowspan=2 class="tdicon">
+             <ha-icon-button icon="" class="" id='ha_icon'></ha-icon-button>
+          </td>
+          <td class="name"><span class="emp" id='friendly_name'></span></td>
+        </tr>
+        <tr>
+          <td class='details' id="details">
+          </td>
+        </tr>
         </tbody>
       </table>
     `;
     card.appendChild(style);
-    card.appendChild(content);
+    card.appendChild(this.content);
     root.appendChild(card)
     this._config = cardConfig;
   }
 
-  _updateContent(element, attributes, hdate, hdays, hcard) {
-    element.innerHTML = `
-      ${attributes.map((attribute) => `
-        <tr>
-          <td rowspan=2 class="tdicon"><ha-icon icon="${attribute.icon}" class="${attribute.alerted}"></td>
-          <td class="name"><span class="emp">${attribute.friendly_name}</span></td>
-        </tr>
-        <tr>
-          <td class="details">
-            ${hdate === false ? `${attribute.next_date}` : ''}
-            ${hdays === false ? " " + `${this._label('ui.components.relative_time.future.In', 'in')}` +
-                                " " + `${attribute.days}` + " " + `${this._label('ui.duration.days', 'days')}` : '' }
-          </td>
-        </tr>
-      `).join('')}
-    `;
+  _ackGarbageOut() {
+    this.myhass.callService('garbage_collection', 'collect_garbage', { entity_id: this._config.entity });
+    this.style.display = "none";
+  }
 
-    this.style.display = hcard?"none":"block";
+  _updateContent(element, attributes, hdate, hdays, hcard) {
+    const root = this.shadowRoot;
+    var today = new Date()
+    var date_option = { year: 'numeric', month: '2-digit', day: '2-digit'};
+    var today_date = new Intl.DateTimeFormat(this.llocale, date_option).format(today);
+    var todayYYYYMMDD = today.toISOString().split("T")[0].replace(/-/g, "");
+
+    root.getElementById('ha_icon').icon = attributes[0].icon;
+    root.getElementById('ha_icon').className = attributes[0].alerted;
+    if ( parseInt(attributes[0].days) < 2 ) {
+      root.getElementById('ha_icon').addEventListener('click', this._ackGarbageOut.bind(this));
+    }
+
+    root.getElementById('friendly_name').innerHTML = attributes[0].friendly_name;
+
+    root.getElementById('details').innerHTML = (hdate === false ? attributes[0].next_date : '') +
+            (hdays === false ? " " + this._label('ui.components.relative_time.future.In', 'in') +
+                                " " + attributes[0].days + " " + this._label('ui.duration.days', 'days') : '' )
+
+    this.style.display = hcard ? "none" : "block";
+
+    if ( attributes[0].last_collection != null ) {
+      if ( parseInt(todayYYYYMMDD) === parseInt(new Date(attributes[0].last_collection).toISOString().split("T")[0].replace(/-/g, "")) ) {
+      // acknowledged today
+        this.style.display = "none";
+      } else if ( parseInt(todayYYYYMMDD) - parseInt(new Date(attributes[0].last_collection).toISOString().split("T")[0].replace(/-/g, "")) < 2 ) {
+      // acknowledged yesterday
+        if ( parseInt(attributes[0].days) < 1 ) {
+          // acknowledged yesterday which was the day before the date of collection, so the collection is today
+          this.style.display = "none";
+        }
+      }
+    }
   }
 
   set hass(hass) {

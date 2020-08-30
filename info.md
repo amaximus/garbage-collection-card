@@ -35,6 +35,9 @@ Garbage collection cards supports some languages and displays the date informati
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 taking the information from the sensor's verbose_format.
 
+When garbage collection is planned for today or tomorrow, clicking on the icon you can acknowledge that the
+garbage was prepared or collected and the card will become hidden.
+
 Please add the card to the resources in configuration.yaml:
 
 ```
