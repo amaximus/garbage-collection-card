@@ -207,8 +207,8 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     var today = new Date()
     var date_option = { year: 'numeric', month: '2-digit', day: '2-digit'};
-    var today_date = new Intl.DateTimeFormat(this.llocale, date_option).format(today);
-    var todayYYYYMMDD = today.toISOString().split("T")[0].replace(/-/g, "");
+    //var today_date = new Intl.DateTimeFormat(this.llocale, date_option).format(today);
+    var todayYYYYMMDD = today.toISOString().split("T")[0].replace(/-/g, ".");
 
     root.getElementById('ha_icon').icon = attributes[0].icon;
     root.getElementById('ha_icon').className = attributes[0].alerted;
@@ -225,14 +225,16 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = hcard ? "none" : "block";
 
     if ( attributes[0].last_collection != null ) {
-      if ( parseInt(todayYYYYMMDD) === parseInt(new Date(attributes[0].last_collection).toISOString().split("T")[0].replace(/-/g, "")) ) {
+      if ( new Date(todayYYYYMMDD).getTime() === new Date(new Date(attributes[0].last_collection).toISOString().split("T")[0].replace(/-/g, ".")).getTime() ) {
       // acknowledged today
         this.style.display = "none";
-      } else if ( parseInt(todayYYYYMMDD) - parseInt(new Date(attributes[0].last_collection).toISOString().split("T")[0].replace(/-/g, "")) < 2 ) {
-      // acknowledged yesterday
-        if ( parseInt(attributes[0].days) < 1 ) {
-          // acknowledged yesterday which was the day before the date of collection, so the collection is today
-          this.style.display = "none";
+      } else {
+        // acknowledged yesterday; 172800 = 60*60*24*2 (secs)
+        if ( new Date(todayYYYYMMDD).getTime() - new Date(new Date(attributes[0].last_collection).toISOString().split("T")[0].replace(/-/g, ".")).getTime() < 172800000 ) {
+          if ( parseInt(attributes[0].days) < 1 ) {
+            // acknowledged yesterday which was the day before the date of collection, so the collection is today
+            this.style.display = "none";
+          }
         }
       }
     }
