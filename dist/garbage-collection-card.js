@@ -126,6 +126,7 @@ class GarbageCollectionCard extends HTMLElement {
     const cardConfig = Object.assign({}, config);
 
     const card = document.createElement('ha-card');
+    card.id = "ha_card";
     this.content = document.createElement('div');
     const style = document.createElement('style');
     let icon_size = config.icon_size;
@@ -213,7 +214,7 @@ class GarbageCollectionCard extends HTMLElement {
     root.getElementById('ha_icon').icon = attributes[0].icon;
     root.getElementById('ha_icon').className = attributes[0].alerted;
     if ( parseInt(attributes[0].days) < 2 ) {
-      root.getElementById('ha_icon').addEventListener('click', this._ackGarbageOut.bind(this));
+      root.getElementById('ha_card').addEventListener('click', this._ackGarbageOut.bind(this));
     }
 
     root.getElementById('friendly_name').innerHTML = attributes[0].friendly_name;
