@@ -1,6 +1,12 @@
 {
     "state": {
-        "today": "Dnes",
-        "tomorrow": "Zítra"
-    }
+        "today": "dnes",
+        "tomorrow": "zítra",
+        "Today": "Dnes",
+        "Tomorrow": "Zítra"
+    },
+    "other": {
+      "due": "do",
+      "Due": "Do",
+      "due_today_order": "true"
 }

@@ -1,6 +1,13 @@
 {
     "state": {
-        "today": "Ma",
-        "tomorrow": "Holnap"
+        "today": "ma",
+        "tomorrow": "holnap",
+        "Today": "Ma",
+        "Tomorrow": "Holnap"
+    },
+    "other": {
+        "due": "esedékes",
+        "Due": "Esedékes",
+        "due_today_order": "true"
     }
 }

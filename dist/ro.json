@@ -1,6 +1,13 @@
 {
     "state": {
-        "today": "Azi",
-        "tomorrow": "Mâine"
+        "today": "azi",
+        "tomorrow": "mâine",
+        "Today": "Azi",
+        "Tomorrow": "Mâine"
+    },
+    "other": {
+      "due": "scadentă",
+      "Due": "Scadentă",
+      "due_today_order": "true"
     }
 }

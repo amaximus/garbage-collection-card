@@ -18,17 +18,21 @@ homeassistant_config_dir/www/community/garbage-collection-card/ directory.<br />
 
 #### Lovelace UI configuration
 Configuration parameters:<br />
-
-**entity** (required): name of the sensor of garbage_collection platform.<br />
-**due_color** (optional): icon color on due date. Accepts both color names and RGB values. Defaults to red.<br />
-**due_1_color** (optional): icon color on the day before due date. Accepts both color names and RGB values. Defaults to due_color.<br />
-**icon_color** (optional): icon color. Accepts both color names and RGB values. Defaults to black.<br />
-**icon_size** (optional): size of the icon. Defaults to 25px.<br />
-**hide_date** (optional): hide date. Defaults to false.<br />
-**hide_days** (optional): hide number of days. Defaults to false.<br />
-**hide_before** (optional): hide entire card until x days before event.  Defaults to not hiding card.<br />
-**title_size** (optional): font size for the sensor's friendly name.  Defaults to 17px.<br />
-**details_size** (optional): font size for date and number of days.  Defaults to 14px.<br />
+---
+| Name | Optional | `Default` | Description |
+| :---- | :---- | :------- | :----------- |
+| entity | **N** | - |  name of the sensor of garbage_collection platform.|
+| due_color | **Y**| `red` | icon color on due date. Accepts both color names and RGB values.|
+| due_1_color | **Y** | due_color | icon color on the day before due date. Accepts both color names and RGB values.|
+| due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'.|
+| icon_color | **Y** | `black` | icon color. Accepts both color names and RGB values.|
+| icon_size | **Y** | `25px` | size of the icon.|
+| hide_date | **Y** | `false` | hide date.|
+| hide_days | **Y** | `false`| hide number of days.|
+| hide_before | **Y** | `false` | hide entire card until x days before event.|
+| title_size | **Y** | `17px` | font size for the sensor's friendly name.|
+| details_size | **Y** | `14px `| font size for date and number of days.|
+---
 
 Garbage collection cards supports some languages and displays the date information based on your locale setting.
 
@@ -42,9 +46,9 @@ Please add the card to the resources in configuration.yaml:
 
 ```
 resources:
-  *When using HACS installation method
+  //When using HACS installation method
   - {type: js, url: '/hacsfiles/garbage-collection-card/garbage-collection-card.js'}
-  *When using manual install method
+  //When using manual install method
   - {type: js, url: '/local/garbage-collection-card.js'}
 ```
 

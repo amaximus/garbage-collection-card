@@ -1,6 +1,13 @@
 {
     "state": {
-        "today": "Vandaag",
-        "tomorrow": "Morgen"
+        "today": "vandaag",
+        "tomorrow": "morgen",
+        "Today": "Vandaag",
+        "Tomorrow": "Morgen"
+    },
+    "other": {
+      "due": "gebeuren",
+      "Due": "Gebeuren",
+      "due_today_order": "false"
     }
 }

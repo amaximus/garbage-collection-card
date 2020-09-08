@@ -1,6 +1,13 @@
 {
     "state": {
-        "today": "Oggi",
-        "tomorrow": "Domani"
+        "today": "oggi",
+        "tomorrow": "domani",
+        "Today": "Oggi",
+        "Tomorrow": "Domani"
+    },
+    "other": {
+      "due": "da fare",
+      "Due": "Da fare",
+      "due_today_order": "true"
     }
 }

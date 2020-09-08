@@ -1,6 +1,13 @@
 {
     "state": {
-        "today": "Idag",
-        "tomorrow": "Imorgon"
+        "today": "idag",
+        "tomorrow": "imorgon",
+        "Today": "Idag",
+        "Tomorrow": "Imorgon"
+    },
+    "other": {
+      "due": "förfaller",
+      "Due": "Förfaller",
+      "due_today_order": "true"
     }
 }

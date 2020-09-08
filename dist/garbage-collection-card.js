@@ -204,7 +204,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = "none";
   }
 
-  _updateContent(element, attributes, hdate, hdays, hcard) {
+  _updateContent(element, attributes, hdate, hdays, hcard, duetxt) {
     const root = this.shadowRoot;
     var today = new Date()
     var date_option = { year: 'numeric', month: '2-digit', day: '2-digit'};
@@ -219,9 +219,13 @@ class GarbageCollectionCard extends HTMLElement {
 
     root.getElementById('friendly_name').innerHTML = attributes[0].friendly_name;
 
-    root.getElementById('details').innerHTML = (hdate === false ? attributes[0].next_date : '') +
+    if ( parseInt(attributes[0].days) < 2 && duetxt === true ) {
+      root.getElementById('details').innerHTML = attributes[0].next_date
+    } else {
+      root.getElementById('details').innerHTML = (hdate === false ? attributes[0].next_date : '') +
             (hdays === false ? " " + this._label('ui.components.relative_time.future.In', 'in') +
                                 " " + attributes[0].days + " " + this._label('ui.duration.days', 'days') : '' )
+    }
 
     this.style.display = hcard ? "none" : "block";
 
@@ -253,6 +257,8 @@ class GarbageCollectionCard extends HTMLElement {
     let hide_card = false;
     let hide_before = -1;
     if (typeof config.hide_before != "undefined") hide_before=config.hide_before
+    let due_txt = false;
+    if (typeof config.due_txt != "undefined") due_txt=config.due_txt
 
     let attributes = this._getAttributes(hass, config.entity.split(".")[1]);
     if (hide_before>-1) {
@@ -278,17 +284,40 @@ class GarbageCollectionCard extends HTMLElement {
         if ( attributes[0].days < 2 ) {
           var translationJSONobj = JSON.parse(rawFile.responseText);
           if ( typeof translationJSONobj != "undefined" ) {
-            var dday = this._stateObj.state == 0 ? "today":"tomorrow";
-            if ( typeof translationJSONobj.state[dday] != "undefined" ) {
-              attributes[0].next_date = translationJSONobj.state[dday];
-            }
-          }
-        }
-      }
-    }
 
-    this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card );
-  }
+            var dday = this._stateObj.state == 0 ? "today":"tomorrow";
+            if ( due_txt === true ) {
+              if ( typeof translationJSONobj.other['due_today_order'] != "undefined" ) {
+                if ( (/true/i).test(translationJSONobj.other['due_today_order']) ) {
+                  if ( typeof translationJSONobj.other['Due'] != "undefined" ) {
+                    attributes[0].next_date = translationJSONobj.other['Due'] + " ";
+                  }
+                  if ( typeof translationJSONobj.state[dday] != "undefined" ) {
+                    attributes[0].next_date += translationJSONobj.state[dday];
+                  }
+               } else {
+                 var dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+                 if ( typeof translationJSONobj.state[dday] != "undefined" ) {
+                   attributes[0].next_date = translationJSONobj.state[dday] + " ";
+                 }
+                 if ( typeof translationJSONobj.other['due'] != "undefined" ) {
+                   attributes[0].next_date += translationJSONobj.other['due'];
+                 }
+               }
+             }
+           } else {
+             dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+             if ( typeof translationJSONobj.state[dday] != "undefined" ) {
+               attributes[0].next_date = translationJSONobj.state[dday];
+             }
+           }
+         }
+       }
+     }
+   }
+
+   this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card, due_txt );
+}
 
   getCardSize() {
     return 1;
