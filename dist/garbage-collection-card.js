@@ -5,6 +5,16 @@ class GarbageCollectionCard extends HTMLElement {
     super();
     this.llocale = window.navigator.userLanguage || window.navigator.language;
     this.attachShadow({ mode: 'open' });
+
+    this.translationJSONobj = "undefined";
+    const translationLocal = "/hacsfiles/garbage-collection-card/" + this.llocale.substring(0,2) + ".json";
+    var rawFile = new XMLHttpRequest();
+    rawFile.overrideMimeType("application/json");
+    rawFile.open("GET", translationLocal, false);
+    rawFile.send(null);
+    if ( rawFile.status == 200 ) {
+        this.translationJSONobj = JSON.parse(rawFile.responseText);
+    }
   }
 
   _label(label, fallback = 'unknown') {
@@ -274,42 +284,32 @@ class GarbageCollectionCard extends HTMLElement {
       hide_date = false;
       attributes[0].next_date = this._stateObj.state;
     } else {
-      const translationLocal = "/hacsfiles/garbage-collection-card/" + hass.language.substring(0,2) + ".json";
-      var rawFile = new XMLHttpRequest();
-   // rawFile.responseType = 'json';
-      rawFile.overrideMimeType("application/json");
-      rawFile.open("GET", translationLocal, false);
-      rawFile.send(null);
-      if ( rawFile.status == 200 ) {
-        if ( attributes[0].days < 2 ) {
-          var translationJSONobj = JSON.parse(rawFile.responseText);
-          if ( typeof translationJSONobj != "undefined" ) {
-
-            var dday = this._stateObj.state == 0 ? "today":"tomorrow";
-            if ( due_txt === true ) {
-              if ( typeof translationJSONobj.other['due_today_order'] != "undefined" ) {
-                if ( (/true/i).test(translationJSONobj.other['due_today_order']) ) {
-                  if ( typeof translationJSONobj.other['Due'] != "undefined" ) {
-                    attributes[0].next_date = translationJSONobj.other['Due'] + " ";
-                  }
-                  if ( typeof translationJSONobj.state[dday] != "undefined" ) {
-                    attributes[0].next_date += translationJSONobj.state[dday];
-                  }
-               } else {
-                 var dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
-                 if ( typeof translationJSONobj.state[dday] != "undefined" ) {
-                   attributes[0].next_date = translationJSONobj.state[dday] + " ";
-                 }
-                 if ( typeof translationJSONobj.other['due'] != "undefined" ) {
-                   attributes[0].next_date += translationJSONobj.other['due'];
-                 }
+      if ( attributes[0].days < 2 ) {
+        if ( typeof this.translationJSONobj != "undefined" ) {
+          var dday = this._stateObj.state == 0 ? "today":"tomorrow";
+          if ( due_txt === true ) {
+            if ( typeof this.translationJSONobj.other['due_today_order'] != "undefined" ) {
+              if ( (/true/i).test(this.translationJSONobj.other['due_today_order']) ) {
+                if ( typeof this.translationJSONobj.other['Due'] != "undefined" ) {
+                  attributes[0].next_date = this.translationJSONobj.other['Due'] + " ";
+                }
+                if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
+                  attributes[0].next_date += this.translationJSONobj.state[dday];
+                }
+             } else {
+               var dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+               if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
+                 attributes[0].next_date = this.translationJSONobj.state[dday] + " ";
+               }
+               if ( typeof this.translationJSONobj.other['due'] != "undefined" ) {
+                 attributes[0].next_date += this.translationJSONobj.other['due'];
                }
              }
-           } else {
-             dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
-             if ( typeof translationJSONobj.state[dday] != "undefined" ) {
-               attributes[0].next_date = translationJSONobj.state[dday];
-             }
+           }
+         } else {
+           dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+           if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
+             attributes[0].next_date = this.translationJSONobj.state[dday];
            }
          }
        }
