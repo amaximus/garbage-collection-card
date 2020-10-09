@@ -1,0 +1,13 @@
+{
+    "state": {
+        "today": "i dag",
+        "tomorrow": "i morgen",
+        "Today": "I dag",
+        "Tomorrow": "I morgen"
+    },
+    "other": {
+      "due": "sker",
+      "Due": "Sker",
+      "due_today_order": "true"
+    }
+}
