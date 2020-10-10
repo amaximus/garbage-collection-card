@@ -1,0 +1,13 @@
+{
+    "state": {
+        "today": "danes",
+        "tomorrow": "jutri",
+        "Today": "Danes",
+        "Tomorrow": "Jutri"
+    },
+    "other": {
+      "due": "zapadlost",
+      "Due": "Zapadlost",
+      "due_today_order": "false"
+    }
+}
