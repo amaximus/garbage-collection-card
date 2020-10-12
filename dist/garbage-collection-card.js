@@ -285,6 +285,7 @@ class GarbageCollectionCard extends HTMLElement {
       attributes[0].next_date = this._stateObj.state;
     } else {
       if ( attributes[0].days < 2 ) {
+        hide_days = true;
         if ( typeof this.translationJSONobj != "undefined" ) {
           var dday = this._stateObj.state == 0 ? "today":"tomorrow";
           if ( due_txt === true ) {

@@ -28,7 +28,7 @@ Configuration parameters:<br />
 | icon_color | **Y** | `black` | icon color. Accepts both color names and RGB values.|
 | icon_size | **Y** | `25px` | size of the icon.|
 | hide_date | **Y** | `false` | hide date.|
-| hide_days | **Y** | `false`| hide number of days.|
+| hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
 | hide_before | **Y** | `false` | hide entire card until x days before event.|
 | title_size | **Y** | `17px` | font size for the sensor's friendly name.|
 | details_size | **Y** | `14px `| font size for date and number of days.|
