@@ -34,12 +34,12 @@ Configuration parameters:<br />
 | details_size | **Y** | `14px `| font size for date and number of days.|
 ---
 
-Garbage collection cards supports some languages and displays the date information based on your locale setting.
+Garbage collection cards support some languages and display the date information based on your locale setting.
 
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
-taking the information from the sensor's verbose_format.
+displayed text will be taken from the sensor's verbose_format.
 
-When garbage collection is planned for today or tomorrow, clicking on the card you can acknowledge that the
+When garbage collection is today or tomorrow, clicking on the card you can acknowledge that the
 garbage was prepared or collected and the card will become hidden.
 
 Please add the card to the resources in configuration.yaml:
