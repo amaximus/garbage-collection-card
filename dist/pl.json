@@ -1,0 +1,13 @@
+{
+  "state": {
+    "today": "dziś",
+    "tomorrow": "jutro",
+    "Today": "Dziś",
+    "Tomorrow": "Jutro"
+  },
+  "other": {
+    "due": "termin",
+    "Due": "termin",
+    "due_today_order": "true"
+  }
+}
