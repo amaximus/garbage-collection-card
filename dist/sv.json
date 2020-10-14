@@ -8,6 +8,7 @@
     "other": {
       "due": "förfaller",
       "Due": "Förfaller",
-      "due_today_order": "true"
+      "due_today_order": "true",
+      "in_days": "om DAYS dagar"
     }
 }

@@ -233,8 +233,7 @@ class GarbageCollectionCard extends HTMLElement {
       root.getElementById('details').innerHTML = attributes[0].next_date
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes[0].next_date : '') +
-            (hdays === false ? " " + this._label('ui.components.relative_time.future.In', 'in') +
-                                " " + attributes[0].days + " " + this._label('ui.duration.days', 'days') : '' )
+            (hdays === false ? " " + attributes[0].days : '' )
     }
 
     this.style.display = hcard ? "none" : "block";
@@ -297,28 +296,38 @@ class GarbageCollectionCard extends HTMLElement {
                 if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
                   attributes[0].next_date += this.translationJSONobj.state[dday];
                 }
-             } else {
-               var dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
-               if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
-                 attributes[0].next_date = this.translationJSONobj.state[dday] + " ";
-               }
-               if ( typeof this.translationJSONobj.other['due'] != "undefined" ) {
-                 attributes[0].next_date += this.translationJSONobj.other['due'];
-               }
-             }
-           }
-         } else {
-           dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
-           if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
-             attributes[0].next_date = this.translationJSONobj.state[dday];
-           }
-         }
-       }
-     }
-   }
-
-   this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card, due_txt );
-}
+              } else {
+                var dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+                if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
+                  attributes[0].next_date = this.translationJSONobj.state[dday] + " ";
+                }
+                if ( typeof this.translationJSONobj.other['due'] != "undefined" ) {
+                  attributes[0].next_date += this.translationJSONobj.other['due'];
+                }
+              }
+            }
+          } else {
+            dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+            if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
+              attributes[0].next_date = this.translationJSONobj.state[dday];
+            }
+          }
+        }
+      } else { // attributes[0].days >= 2
+        var tdays = attributes[0].days;
+        if ( typeof this.translationJSONobj != "undefined" ) {
+          if ( typeof this.translationJSONobj.other['in_days'] != "undefined" ) {
+            attributes[0].days = this.translationJSONobj.other['in_days'].replace('DAYS', tdays);
+          } else { // no translation found for in_days
+            attributes[0].days = " in " + tdays + " days";
+          }
+        } else {
+          attributes[0].days = " in " + tdays + " days";
+        }
+      }
+    }
+    this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card, due_txt );
+  }
 
   getCardSize() {
     return 1;

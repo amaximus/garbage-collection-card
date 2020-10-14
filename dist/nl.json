@@ -8,6 +8,7 @@
     "other": {
       "due": "gebeuren",
       "Due": "Gebeuren",
-      "due_today_order": "false"
+      "due_today_order": "false",
+      "in_days": "binnen DAYS dagen"
     }
 }

@@ -8,6 +8,7 @@
     "other": {
       "due": "fällig",
       "Due": "Fällig",
-      "due_today_order": "false"
+      "due_today_order": "false",
+      "in_days": "in DAYS Tagen"
     }
 }

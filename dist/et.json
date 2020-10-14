@@ -8,6 +8,7 @@
     "other": {
         "due": "toimub",
         "Due": "Toimub",
-        "due_today_order": "true"
+        "due_today_order": "true",
+        "in_days": "kahe DAYS pärast"
     }
 }
