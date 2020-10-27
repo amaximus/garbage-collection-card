@@ -5,7 +5,7 @@
 This Lovelace custom card displays garbage collection information provided by
 the Garbage Collection custom component you may find at
 [https://github.com/bruxy70/Garbage-Collection](https://github.com/bruxy70/Garbage-Collection/).<br />
-It will draw your attention the day before the garbage collection by changing the icon color to red by default.
+It will draw your attention the day before the garbage collection by changing the icon color to your theme's active icon color by default.
 
 Lovelace UI does not support platform attributes natively.<br />
 Implementation of handling attributes in Lovelace was inspired by [entity-attributes-card](https://github.com/custom-cards/entity-attributes-card).
@@ -22,10 +22,10 @@ Configuration parameters:<br />
 | Name | Optional | `Default` | Description |
 | :---- | :---- | :------- | :----------- |
 | entity | **N** | - |  name of the sensor of garbage_collection platform.|
-| due_color | **Y**| `red` | icon color on due date. Accepts both color names and RGB values.|
+| due_color | **Y**| theme's icon color | icon color on due date. Accepts both color names and RGB values.|
 | due_1_color | **Y** | due_color | icon color on the day before due date. Accepts both color names and RGB values.|
 | due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'.|
-| icon_color | **Y** | `black` | icon color. Accepts both color names and RGB values.|
+| icon_color | **Y** | theme's icon active color | icon color. Accepts both color names and RGB values.|
 | icon_size | **Y** | `25px` | size of the icon.|
 | hide_date | **Y** | `false` | hide date.|
 | hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
