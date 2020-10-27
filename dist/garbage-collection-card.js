@@ -142,9 +142,9 @@ class GarbageCollectionCard extends HTMLElement {
     let icon_size = config.icon_size;
     if (typeof icon_size === "undefined") icon_size="25px"
     let icon_color = config.icon_color;
-    if (typeof icon_color === "undefined") icon_color="black"
+    if (typeof icon_color === "undefined") icon_color="var(--paper-item-icon-color)"
     let due_color = config.due_color;
-    if (typeof due_color === "undefined") due_color="red"
+    if (typeof due_color === "undefined") due_color="var(--paper-item-icon-active-color)"
     let due_1_color = config.due_1_color;
     if (typeof due_1_color === "undefined") due_1_color=due_color
     let details_size = config.details_size;
