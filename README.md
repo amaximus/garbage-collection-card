@@ -29,7 +29,7 @@ Configuration parameters:<br />
 | icon_size | **Y** | `25px` | size of the icon.|
 | hide_date | **Y** | `false` | hide date.|
 | hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
-| hide_before | **Y** | `false` | hide entire card until x days before event.|
+| hide_before | **Y** | `-1` | hide entire card until X days before event. Default: do not hide card.|
 | title_size | **Y** | `17px` | font size for the sensor's friendly name.|
 | details_size | **Y** | `14px `| font size for date and number of days.|
 ---
@@ -40,7 +40,8 @@ When garbage-collection sensors are used with verbose_state=True, hide_date and 
 displayed text will be taken from the sensor's verbose_format.
 
 When garbage collection is today or tomorrow, clicking on the card you can acknowledge that the
-garbage was prepared or collected and the card will become hidden.
+garbage was prepared or collected and the card will be hidden until the day after due day or if hide_before
+is used, until X days before next due day.
 
 Please add the card to the resources in configuration.yaml:
 
