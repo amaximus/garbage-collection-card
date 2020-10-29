@@ -6,14 +6,21 @@ class GarbageCollectionCard extends HTMLElement {
     this.llocale = window.navigator.userLanguage || window.navigator.language;
     this.attachShadow({ mode: 'open' });
 
-    this.translationJSONobj = "undefined";
-    const translationLocal = "/hacsfiles/garbage-collection-card/" + this.llocale.substring(0,2) + ".json";
+    this.translationJSONobj = null;
+    var translationLocal = "/hacsfiles/garbage-collection-card/" + this.llocale.substring(0,2) + ".json";
     var rawFile = new XMLHttpRequest();
     rawFile.overrideMimeType("application/json");
     rawFile.open("GET", translationLocal, false);
     rawFile.send(null);
     if ( rawFile.status == 200 ) {
+      this.translationJSONobj = JSON.parse(rawFile.responseText);
+    } else { // if no language file found, default to en
+      translationLocal = "/hacsfiles/garbage-collection-card/en.json";
+      rawFile.open("GET", translationLocal, false);
+      rawFile.send(null);
+      if ( rawFile.status == 200 ) {
         this.translationJSONobj = JSON.parse(rawFile.responseText);
+      }
     }
   }
 
