@@ -1,0 +1,14 @@
+{
+    "state": {
+        "today": "danas",
+        "tomorrow": "sutra",
+        "Today": "Danas",
+        "Tomorrow": "Sutra"
+    },
+    "other": {
+      "due": "dospijeva",
+      "Due": "Dospijeva",
+      "due_today_order": "true",
+      "in_days": "za DAYS dana"
+    }
+}
