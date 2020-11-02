@@ -3,25 +3,7 @@ class GarbageCollectionCard extends HTMLElement {
 
   constructor() {
     super();
-    this.llocale = window.navigator.userLanguage || window.navigator.language;
     this.attachShadow({ mode: 'open' });
-
-    this.translationJSONobj = null;
-    var translationLocal = "/hacsfiles/garbage-collection-card/" + this.llocale.substring(0,2) + ".json";
-    var rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", translationLocal, false);
-    rawFile.send(null);
-    if ( rawFile.status == 200 ) {
-      this.translationJSONobj = JSON.parse(rawFile.responseText);
-    } else { // if no language file found, default to en
-      translationLocal = "/hacsfiles/garbage-collection-card/en.json";
-      rawFile.open("GET", translationLocal, false);
-      rawFile.send(null);
-      if ( rawFile.status == 200 ) {
-        this.translationJSONobj = JSON.parse(rawFile.responseText);
-      }
-    }
   }
 
   _label(label, fallback = 'unknown') {
@@ -59,7 +41,7 @@ class GarbageCollectionCard extends HTMLElement {
       const regEx = new RegExp(`^${attribute.replace(/\*/g, '.*')}$`, 'i');
       return stateObj.search(regEx) === 0;
     }
- 
+
     var filters1 = new Array();
     filters1[0] = {key: "sensor." + filter1 + ".next_date"};
     filters1[1] = {key: "sensor." + filter1 + ".days"};
@@ -214,6 +196,7 @@ class GarbageCollectionCard extends HTMLElement {
     card.appendChild(this.content);
     root.appendChild(card)
     this._config = cardConfig;
+    this._firstLoad = false;
   }
 
   _ackGarbageOut() {
@@ -275,6 +258,34 @@ class GarbageCollectionCard extends HTMLElement {
     if (typeof config.hide_before != "undefined") hide_before=config.hide_before
     let due_txt = false;
     if (typeof config.due_txt != "undefined") due_txt=config.due_txt
+
+    if ( ! this._firstLoad ) {
+      this._firstLoad = true;
+      let hass_lang_priority = false;
+      if (typeof config.hass_lang_priority != "undefined") hass_lang_priority=config.hass_lang_priority
+
+      this.llocale = window.navigator.userLanguage || window.navigator.language;
+      if ( hass_lang_priority ) {
+        this.llocale = this.myhass.language;
+      }
+      this.translationJSONobj = null;
+
+      var translationLocal = "/hacsfiles/garbage-collection-card/" + this.llocale.substring(0,2) + ".json";
+      var rawFile = new XMLHttpRequest();
+      rawFile.overrideMimeType("application/json");
+      rawFile.open("GET", translationLocal, false);
+      rawFile.send(null);
+      if ( rawFile.status == 200 ) {
+        this.translationJSONobj = JSON.parse(rawFile.responseText);
+      } else { // if no language file found, default to en
+        translationLocal = "/hacsfiles/garbage-collection-card/en.json";
+        rawFile.open("GET", translationLocal, false);
+        rawFile.send(null);
+        if ( rawFile.status == 200 ) {
+          this.translationJSONobj = JSON.parse(rawFile.responseText);
+        }
+      }
+    }
 
     let attributes = this._getAttributes(hass, config.entity.split(".")[1]);
     if (hide_before>-1) {

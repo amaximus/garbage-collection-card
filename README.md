@@ -27,14 +27,16 @@ Configuration parameters:<br />
 | due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'.|
 | icon_color | **Y** | theme's icon color | icon color. Accepts both color names and RGB values.|
 | icon_size | **Y** | `25px` | size of the icon.|
+| hass_lang_priority | **Y** | `false` | whether HASS language has priority over browser language.|
 | hide_date | **Y** | `false` | hide date.|
 | hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
 | hide_before | **Y** | `-1` | hide entire card until X days before event. Default: do not hide card.|
 | title_size | **Y** | `17px` | font size for the sensor's friendly name.|
-| details_size | **Y** | `14px `| font size for date and number of days.|
+| details_size | **Y** | `14px` | font size for date and number of days.|
 ---
 
-Garbage collection cards support some languages and display the date information based on your locale setting.
+Garbage collection cards support some languages and display the date information based on your locale setting by default.
+You may override this to use the language set in HASS for displaying its frontend.
 
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 displayed text will be taken from the sensor's verbose_format.
