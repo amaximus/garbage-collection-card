@@ -150,7 +150,7 @@ class GarbageCollectionCard extends HTMLElement {
     root.getElementById('friendly_name').innerHTML = attributes.friendly_name;
 
     if (parseInt(attributes.days) < 2 && duetxt === true) {
-      root.getElementById('details').innerHTML = attributes.next_date
+      root.getElementById('details').innerHTML = attributes.next_date;
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdays === false ? ' ' + attributes.days : '' )
