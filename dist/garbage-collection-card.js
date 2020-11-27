@@ -78,12 +78,9 @@ class GarbageCollectionCard extends HTMLElement {
     style.textContent = `
       table {
         width: 100%;
-        margin-left: auto;
-        margin-right: auto;
       }
       td {
         font-size: 120%;
-        text-align: left;
       }
       .tdicon {
         padding-left: 35px;
