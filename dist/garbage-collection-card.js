@@ -138,7 +138,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = "none";
   }
 
-  _updateContent(element, attributes, hdate, hdays, hcard, duetxt) {
+  _updateContent(attributes, hdate, hdays, hcard, duetxt) {
     const root = this.shadowRoot;
     var today = new Date()
     var date_option = { year: 'numeric', month: '2-digit', day: '2-digit'};
@@ -271,7 +271,7 @@ class GarbageCollectionCard extends HTMLElement {
         }
       }
     }
-    this._updateContent(root.getElementById('attributes'), attributes, hide_date, hide_days, hide_card, due_txt );
+    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt );
   }
 
   getCardSize() {
