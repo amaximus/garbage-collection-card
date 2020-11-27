@@ -174,6 +174,11 @@ class GarbageCollectionCard extends HTMLElement {
     }
   }
 
+  _updateContentWithWarning(error) {
+    const root = this.shadowRoot;
+    root.getElementById('details').innerHTML = `<hui-warning>${error}</hui-warning>`;
+  }
+
   set hass(hass) {
     const config = this._config;
     const root = this.shadowRoot;
@@ -216,6 +221,14 @@ class GarbageCollectionCard extends HTMLElement {
     }
 
     this._stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
+    
+    if (this._stateObj === null) {
+      var entityNotFoundMessage = this._label('ui.panel.lovelace.warning.entity_not_found', 'Entity not found: {entity}');
+      entityNotFoundMessage = entityNotFoundMessage.replace('{entity}', this._config.entity);  
+      this._updateContentWithWarning(entityNotFoundMessage);
+      return;
+    }
+    
     if (isNaN(this._stateObj.state)) {
       hide_days = true;
       hide_date = false;
