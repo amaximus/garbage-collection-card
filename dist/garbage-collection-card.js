@@ -141,12 +141,11 @@ class GarbageCollectionCard extends HTMLElement {
   _updateContent(attributes, hdate, hdays, hcard, duetxt) {
     const root = this.shadowRoot;
     var today = new Date()
-    var date_option = { year: 'numeric', month: '2-digit', day: '2-digit'};
-    //var today_date = new Intl.DateTimeFormat(this.llocale, date_option).format(today);
     var todayYYYYMMDD = today.toISOString().split("T")[0].replace(/-/g, ".");
 
     root.getElementById('ha_icon').icon = attributes.icon;
     root.getElementById('ha_icon').className = attributes.alerted;
+    
     if (parseInt(attributes.days) < 2) {
       root.getElementById('ha_card').addEventListener('click', this._ackGarbageOut.bind(this));
     }
@@ -157,7 +156,7 @@ class GarbageCollectionCard extends HTMLElement {
       root.getElementById('details').innerHTML = attributes.next_date
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
-            (hdays === false ? " " + attributes.days : '' )
+            (hdays === false ? ' ' + attributes.days : '' )
     }
 
     this.style.display = hcard ? "none" : "block";
@@ -216,22 +215,19 @@ class GarbageCollectionCard extends HTMLElement {
     let attributes = this._getAttributes(hass, config.entity);
     
     if (hide_before > -1) {
-      let iDays = parseInt(attributes.days, 10);
-      if (iDays > hide_before) {
-        hide_card = true;
-      }
+      hide_card = attributes.days > hide_before;
     }
 
     this._stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
-    if ( isNaN(this._stateObj.state) ) {
+    if (isNaN(this._stateObj.state)) {
       hide_days = true;
       hide_date = false;
       attributes.next_date = this._stateObj.state;
     } else {
-      if ( attributes.days < 2 ) {
+      if (attributes.days < 2) {
         hide_days = true;
-        if ( typeof this.translationJSONobj != "undefined" ) {
-          var dday = this._stateObj.state == 0 ? "today":"tomorrow";
+        if (typeof this.translationJSONobj != "undefined") {
+          var dday = this._stateObj.state == 0 ? "today" : "tomorrow";
           if ( due_txt === true ) {
             if ( typeof this.translationJSONobj.other['due_today_order'] != "undefined" ) {
               if ( (/true/i).test(this.translationJSONobj.other['due_today_order']) ) {
@@ -242,7 +238,7 @@ class GarbageCollectionCard extends HTMLElement {
                   attributes.next_date += this.translationJSONobj.state[dday];
                 }
               } else {
-                var dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+                var dday = this._stateObj.state == 0 ? "Today" : "Tomorrow";
                 if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
                   attributes.next_date = this.translationJSONobj.state[dday] + " ";
                 }
@@ -252,26 +248,22 @@ class GarbageCollectionCard extends HTMLElement {
               }
             }
           } else {
-            dday = this._stateObj.state == 0 ? "Today":"Tomorrow";
+            dday = this._stateObj.state == 0 ? "Today" : "Tomorrow";
             if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
               attributes.next_date = this.translationJSONobj.state[dday];
             }
           }
         }
       } else { // attributes.days >= 2
-        var tdays = attributes.days;
-        if ( typeof this.translationJSONobj != "undefined" ) {
-          if ( typeof this.translationJSONobj.other['in_days'] != "undefined" ) {
-            attributes.days = this.translationJSONobj.other['in_days'].replace('DAYS', tdays);
-          } else { // no translation found for in_days
-            attributes.days = " in " + tdays + " days";
-          }
+        if ( typeof this.translationJSONobj != "undefined" 
+          && typeof this.translationJSONobj.other['in_days'] !== "undefined" ) {
+            attributes.days = this.translationJSONobj.other['in_days'].replace('DAYS', attributes.days);
         } else {
-          attributes.days = " in " + tdays + " days";
+          attributes.days = `in ${attributes.days} days`;
         }
       }
     }
-    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt );
+    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt);
   }
 
   getCardSize() {
