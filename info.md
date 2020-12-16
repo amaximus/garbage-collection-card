@@ -78,3 +78,8 @@ Basic card:<br />
 Different icon sizes and colors:<br />
 ![Different icon sizes](garbage_collection_difsize.jpg)
 
+## Thanks
+
+Thanks to all the people who have contributed!
+
+[![contributors](https://contributors-img.web.app/image?repo=amaximus/garbage-collection-card)](https://github.com/amaximus/garbage-collection-card/graphs/contributors)
