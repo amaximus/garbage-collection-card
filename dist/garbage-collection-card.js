@@ -22,7 +22,7 @@ class GarbageCollectionCard extends HTMLElement {
       );
 
       var days = entityState.attributes['days'];
-      var alerted = days < 2 ? 'alerted_1' : days < 1 ? 'alerted' : '';
+      var alerted = days < 1 ? 'alerted' : days < 2 ? 'alerted_1' : '';
 
       return {
         friendly_name: entityState.attributes['friendly_name'],
