@@ -61,6 +61,7 @@ class GarbageCollectionCard extends HTMLElement {
       hide_date: false,
       hide_days: false,
       hide_before: -1,
+      hide_on_click: true,
       title_size: '17px',
       details_size: '14px',
     };
@@ -135,7 +136,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = "none";
   }
 
-  _updateContent(attributes, hdate, hdays, hcard, duetxt) {
+  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick) {
     const root = this.shadowRoot;
     var today = new Date()
     var todayYYYYMMDD = today.toISOString().split("T")[0].replace(/-/g, ".");
@@ -143,7 +144,7 @@ class GarbageCollectionCard extends HTMLElement {
     root.getElementById('ha_icon').icon = attributes.icon;
     root.getElementById('ha_icon').className = attributes.alerted;
     
-    if (parseInt(attributes.days) < 2) {
+    if (parseInt(attributes.days) < 2 && honclick) {
       root.getElementById('ha_card').addEventListener('click', this._ackGarbageOut.bind(this));
     }
 
@@ -184,7 +185,7 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     this.myhass = hass;
 
-    let { hide_date, hide_days, hide_before, due_txt } = config;
+    let { hide_date, hide_days, hide_before, due_txt, hide_on_click } = config;
     let hide_card = false;
 
     if (!this._firstLoad) {
@@ -273,7 +274,7 @@ class GarbageCollectionCard extends HTMLElement {
         }
       }
     }
-    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt);
+    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click);
   }
 
   getCardSize() {
