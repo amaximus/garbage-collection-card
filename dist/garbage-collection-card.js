@@ -13,7 +13,7 @@ class GarbageCollectionCard extends HTMLElement {
   _getAttributes(hass, entity_id) {
     var entityState = hass.states[entity_id];
 
-    if (entityState) {
+    if (entityState && entityState.attributes['next_date']) {
       var date_option = { year: 'numeric', month: '2-digit', day: '2-digit' };
 
       var date_tmp = new Date(entityState.attributes['next_date']);
