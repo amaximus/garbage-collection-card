@@ -17,6 +17,9 @@ The easiest way to install it is through [HACS (Home Assistant Community Store)]
 search for <i>garbage</i> and select Garbage Collection Card from Plugins.<br />
 If you are not using HACS, you may download garbage-collection-card.js and the translations directory and put them into
 homeassistant_config_dir/www/community/garbage-collection-card/ directory.<br />
+The card does not support configuration flow, therefore you'll have to add the resources via UI->Configuration
+->Lovelace Dashboards->Resources then add the card manually editing the card configuration yaml on the dashboard at
+Add Card->Manual.
 
 #### Lovelace UI configuration
 Configuration parameters:<br />
