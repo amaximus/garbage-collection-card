@@ -32,6 +32,8 @@ Configuration parameters:<br />
 | due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'.|
 | icon_color | **Y** | theme's icon color | icon color. Accepts both color names and RGB values.|
 | icon_size | **Y** | `25px` | size of the icon.|
+| icon_cell_padding | **Y** | `35px` | padding applied to icon cell.|
+| icon_cell_width | **Y** | `60px` | icon cell width.|
 | hass_lang_priority | **Y** | `false` | whether HASS language has priority over browser language.|
 | hide_date | **Y** | `false` | hide date.|
 | hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
