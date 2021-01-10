@@ -57,6 +57,8 @@ class GarbageCollectionCard extends HTMLElement {
       due_txt: false,
       icon_color: 'var(--paper-item-icon-color)',
       icon_size: '25px',
+      icon_cell_padding: '35px',
+      icon_cell_width: '60px',
       hass_lang_priority: false,
       hide_date: false,
       hide_days: false,
@@ -84,8 +86,8 @@ class GarbageCollectionCard extends HTMLElement {
         font-size: 120%;
       }
       .tdicon {
-        padding-left: 35px;
-        width: 60px;
+        padding-left: ${cardConfig.icon_cell_padding};
+        width: ${cardConfig.icon_cell_width};
       }
       ha-icon-button {
         color: ${cardConfig.icon_color};
