@@ -64,6 +64,8 @@ class GarbageCollectionCard extends HTMLElement {
       hide_days: false,
       hide_before: -1,
       hide_on_click: true,
+      hide_icon: false,
+      hide_title: false,
       title_size: '17px',
       details_size: '14px',
     };
@@ -114,13 +116,13 @@ class GarbageCollectionCard extends HTMLElement {
       <table>
         <tbody id='attributes'>
         <tr>
-          <td rowspan=2 class="tdicon">
+          <td rowspan=2 class="tdicon" id="tdicon">
             <ha-icon-button icon="" class="" id='ha_icon'></ha-icon-button>
           </td>
           <td class="name"><span class="emp" id='friendly_name'></span></td>
         </tr>
         <tr>
-          <td class='details' id="details">
+          <td class='details' id='details'>
           </td>
         </tr>
         </tbody>
@@ -138,7 +140,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = "none";
   }
 
-  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick) {
+  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick, htitle, hicon) {
     const root = this.shadowRoot;
     var today = new Date()
     var todayYYYYMMDD = today.toISOString().split("T")[0];
@@ -158,8 +160,15 @@ class GarbageCollectionCard extends HTMLElement {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdays === false ? ' ' + attributes.days : '' )
     }
+    if (hicon) {
+      root.getElementById('tdicon').style.display = "none";
+      root.getElementById('friendly_name').style.paddingLeft = "45px";
+      root.getElementById('details').style.paddingLeft = "45px";
+    }
 
     this.style.display = hcard ? "none" : "block";
+
+    root.getElementById('friendly_name').style.display = htitle ? "none" : "block" ;
 
     if ( attributes.last_collection != null ) {
       if ( new Date(todayYYYYMMDD).getTime() === new Date(new Date(attributes.last_collection).toISOString().split("T")[0]).getTime() ) {
@@ -187,7 +196,7 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     this.myhass = hass;
 
-    let { hide_date, hide_days, hide_before, due_txt, hide_on_click } = config;
+    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title } = config;
     let hide_card = false;
 
     if (!this._firstLoad) {
@@ -276,7 +285,7 @@ class GarbageCollectionCard extends HTMLElement {
         }
       }
     }
-    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click);
+    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click, hide_title, hide_icon);
   }
 
   getCardSize() {

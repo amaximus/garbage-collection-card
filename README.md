@@ -26,7 +26,7 @@ Configuration parameters:<br />
 ---
 | Name | Optional | `Default` | Description |
 | :---- | :---- | :------- | :----------- |
-| entity | **N** | - |  name of the sensor of garbage_collection platform.|
+| entity | **N** | - | name of the sensor of garbage_collection platform.|
 | due_color | **Y**| theme's icon active color | icon color on due date. Accepts both color names and RGB values.|
 | due_1_color | **Y** | due_color | icon color on the day before due date. Accepts both color names and RGB values.|
 | due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'.|
@@ -35,10 +35,12 @@ Configuration parameters:<br />
 | icon_cell_padding | **Y** | `35px` | padding applied to icon cell.|
 | icon_cell_width | **Y** | `60px` | icon cell width.|
 | hass_lang_priority | **Y** | `false` | whether HASS language has priority over browser language.|
+| hide_before | **Y** | `-1` | hide entire card until X days before event. Default: do not hide card.|
 | hide_date | **Y** | `false` | hide date.|
 | hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
+| hide_icon | **Y** | `false`| hide icon. |
 | hide_on_click | **Y** | `true`| hide the card upon click when due date is today or tomorrow.|
-| hide_before | **Y** | `-1` | hide entire card until X days before event. Default: do not hide card.|
+| hide_title | **Y** | `false`| hide title. |
 | title_size | **Y** | `17px` | font size for the sensor's friendly name.|
 | details_size | **Y** | `14px` | font size for date and number of days.|
 ---

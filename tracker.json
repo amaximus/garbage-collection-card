@@ -1,8 +1,8 @@
 {
   "garbage-collection-card": {
-    "version": "1.17.2",
-    "updated_at": "2021-01-08",
+    "version": "1.19.0",
+    "updated_at": "2021-01-27",
     "visit_repo": "https://github.com/amaximus/garbage-collection-card",
-    "changelog": "https://github.com/amaximus/garbage-collection-card/releases/1.17.2"
+    "changelog": "https://github.com/amaximus/garbage-collection-card/releases/1.19.0"
   }
 }
