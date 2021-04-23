@@ -13,7 +13,7 @@ Lovelace UI does not support platform attributes natively.<br />
 Implementation of handling attributes in Lovelace was inspired by [entity-attributes-card](https://github.com/custom-cards/entity-attributes-card).
 
 #### Installation
-The easiest way to install it is through [HACS (Home Assistant Community Store)](https://custom-components.github.io/hacs/),
+The easiest way to install it is through [HACS (Home Assistant Community Store)](https://github.com/hacs/frontend),
 search for <i>garbage</i> and select Garbage Collection Card from Plugins.<br />
 If you are not using HACS, you may download garbage-collection-card.js and the translations directory and put them into
 homeassistant_config_dir/www/community/garbage-collection-card/ directory.<br />
