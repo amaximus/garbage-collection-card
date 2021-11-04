@@ -117,7 +117,9 @@ class GarbageCollectionCard extends HTMLElement {
         <tbody id='attributes'>
         <tr>
           <td rowspan=2 class="tdicon" id="tdicon">
-            <ha-icon-button icon="" class="" id='ha_icon'></ha-icon-button>
+            <ha-icon-button icon="" class="">
+            <ha-icon icon="" class="" id='ha_icon'></ha-icon>
+            </ha-icon-button>
           </td>
           <td class="name"><span class="emp" id='friendly_name'></span></td>
         </tr>
