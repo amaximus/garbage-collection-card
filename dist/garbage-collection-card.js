@@ -162,6 +162,10 @@ class GarbageCollectionCard extends HTMLElement {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdays === false ? ' ' + attributes.days : '' )
     }
+    if ( hdays === true && hdate === true ) {
+      root.getElementById('details').style.display = "none";
+    }
+
     if (hicon) {
       root.getElementById('tdicon').style.display = "none";
       root.getElementById('friendly_name').style.paddingLeft = "45px";
