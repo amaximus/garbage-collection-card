@@ -60,9 +60,9 @@ Please add the card to the resources in configuration.yaml:
 ```
 resources:
   //When using HACS installation method
-  - {type: js, url: '/hacsfiles/garbage-collection-card/garbage-collection-card.js'}
+  - {type: module, url: '/hacsfiles/garbage-collection-card/garbage-collection-card.js'}
   //When using manual install method
-  - {type: js, url: '/local/garbage-collection-card.js'}
+  - {type: module, url: '/local/garbage-collection-card.js'}
 ```
 
 Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
