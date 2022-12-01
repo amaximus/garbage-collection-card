@@ -1,0 +1,14 @@
+{
+    "state": {
+        "today": "tänään",
+        "tomorrow": "huomenna",
+        "Today": "Tänään",
+        "Tomorrow": "Huomenna"
+    },
+    "other": {
+        "due": "tapahtuu",
+        "Due": "Tapahtuu",
+        "due_today_order": "true",
+        "in_days": "DAYS päivän päästä"
+    }
+}
