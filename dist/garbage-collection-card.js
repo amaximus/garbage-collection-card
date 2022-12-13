@@ -162,7 +162,7 @@ class GarbageCollectionCard extends HTMLElement {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdays === false ? ' ' + attributes.days : '' )
     }
-    if ( hdays === true && hdate === true ) {
+    if ( hdays === true && hdate === true && duetxt === false) {
       root.getElementById('details').style.display = "none";
     }
 
@@ -253,7 +253,6 @@ class GarbageCollectionCard extends HTMLElement {
       attributes.next_date = this._stateObj.state;
     } else {
       if (attributes.days < 2) {
-        hide_days = true;
         if (typeof this.translationJSONobj != "undefined") {
           var dday = this._stateObj.state == 0 ? "today" : "tomorrow";
           if ( due_txt === true ) {
