@@ -40,7 +40,7 @@ Configuration parameters:<br />
 | hide_days | **Y** | `false`| hide number of days. Automatically set to true when collection is due today or tomorrow.|
 | hide_icon | **Y** | `false`| hide icon. |
 | hide_on_click | **Y** | `true`| hide the card upon click when due date is today or tomorrow.|
-| hide_on_click | **Y** | `false`| hide the card when due date is today, e.g. collection is early in the morning. |
+| hide_on_today | **Y** | `false`| hide the card when due date is today, e.g. collection is early in the morning. |
 | hide_title | **Y** | `false`| hide title. |
 | title_size | **Y** | `17px` | font size for the sensor's friendly name.|
 | details_size | **Y** | `14px` | font size for date and number of days.|
