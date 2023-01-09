@@ -239,7 +239,9 @@ class GarbageCollectionCard extends HTMLElement {
       hide_card = attributes.days > hide_before;
     }
 
-    hide_card = hide_on_today && attributes.days == 0
+    if (attributes.days == 0) {
+      hide_card = hide_on_today
+    }
 
     this._stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
 
