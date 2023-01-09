@@ -68,6 +68,7 @@ class GarbageCollectionCard extends HTMLElement {
       hide_title: false,
       title_size: '17px',
       details_size: '14px',
+      hide_on_today: false,
     };
 
     const cardConfig = {
@@ -202,7 +203,7 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     this.myhass = hass;
 
-    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title } = config;
+    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title, hide_on_today } = config;
     let hide_card = false;
 
     if (!this._firstLoad) {
@@ -237,6 +238,8 @@ class GarbageCollectionCard extends HTMLElement {
     if (hide_before > -1) {
       hide_card = attributes.days > hide_before;
     }
+
+    hide_card = hide_on_today && attributes.days == 0
 
     this._stateObj = this._config.entity in hass.states ? hass.states[this._config.entity] : null;
 
