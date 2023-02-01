@@ -29,7 +29,7 @@ Configuration parameters:<br />
 | entity | **N** | - | name of the sensor of garbage_collection platform.|
 | due_color | **Y**| theme's icon active color | icon color on due date. Accepts both color names and RGB values.|
 | due_1_color | **Y** | due_color | icon color on the day before due date. Accepts both color names and RGB values.|
-| due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'.|
+| due_txt | **Y** | `false` | For today/tomorrow pick-ups use 'Due today' or 'Due tomorrow'. Has precendence over hide_date and hide_days. |
 | icon_color | **Y** | theme's icon color | icon color. Accepts both color names and RGB values.|
 | icon_size | **Y** | `25px` | size of the icon.|
 | icon_cell_padding | **Y** | `35px` | padding applied to icon cell.|

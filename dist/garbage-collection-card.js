@@ -157,13 +157,18 @@ class GarbageCollectionCard extends HTMLElement {
 
     root.getElementById('friendly_name').innerHTML = attributes.friendly_name;
 
-    if (parseInt(attributes.days) < 2 && duetxt === true) {
-      root.getElementById('details').innerHTML = attributes.next_date;
+    if (parseInt(attributes.days) < 2) {
+      if (duetxt === true) {
+        root.getElementById('details').innerHTML = attributes.next_date;
+      } else {
+        root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
+            (hdays === false ? ' ' + attributes.days : '' )
+      }
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdays === false ? ' ' + attributes.days : '' )
     }
-    if ( hdays === true && hdate === true && duetxt === false) {
+    if ( hdays === true && hdate === true && duetxt === false ) {
       root.getElementById('details').style.display = "none";
     }
 
@@ -280,9 +285,11 @@ class GarbageCollectionCard extends HTMLElement {
               }
             }
           } else {
-            dday = this._stateObj.state == 0 ? "Today" : "Tomorrow";
-            if ( typeof this.translationJSONobj.state[dday] != "undefined" ) {
-              attributes.next_date = this.translationJSONobj.state[dday];
+            if ( typeof this.translationJSONobj != "undefined"
+              && typeof this.translationJSONobj.other['in_days'] !== "undefined" ) {
+                attributes.days = this.translationJSONobj.other['in_days'].replace('DAYS', attributes.days);
+            } else {
+              attributes.days = `in ${attributes.days} days`;
             }
           }
         }
