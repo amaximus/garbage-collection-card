@@ -20,6 +20,7 @@ class GarbageCollectionCard extends HTMLElement {
       var next_date = new Intl.DateTimeFormat(this.llocale, date_option).format(
         date_tmp
       );
+      var dow = date_tmp.toLocaleString(this.llocale, {weekday: this._config.dow_format})
 
       var days = entityState.attributes['days'];
       var alerted = days < 1 ? 'alerted' : days < 2 ? 'alerted_1' : '';
@@ -31,6 +32,7 @@ class GarbageCollectionCard extends HTMLElement {
         icon: entityState.attributes['icon'],
         alerted: alerted,
         last_collection: entityState.attributes['last_collection'] || null,
+        dow: dow,
       };
     }
     return {
@@ -40,6 +42,7 @@ class GarbageCollectionCard extends HTMLElement {
       icon: '',
       alerted: '',
       last_collection: null,
+      dow: '',
     };
   }
 
@@ -158,19 +161,18 @@ class GarbageCollectionCard extends HTMLElement {
     }
 
     root.getElementById('friendly_name').innerHTML = attributes.friendly_name;
-    var dow = new Date(attributes.next_date).toLocaleString(this.llocale, {weekday: dowfmt})
 
     if (parseInt(attributes.days) < 2) {
       if (duetxt === true) {
         root.getElementById('details').innerHTML = attributes.next_date;
       } else {
         root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
-            (hdow === false ? ' ' + dow + (hdays === false ? ',' : '') : '' ) +
+            (hdow === false ? ' ' + attributes.dow + (hdays === false ? ',' : '') : '' ) +
             (hdays === false ? ' ' + attributes.days : '' )
       }
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
-            (hdow === false ? ' ' + dow + (hdays === false ? ',' : '') : '' ) +
+            (hdow === false ? ' ' + attributes.dow + (hdays === false ? ',' : '') : '' ) +
             (hdays === false ? ' ' + attributes.days : '' )
     }
     if ( hdays === true && hdate === true && duetxt === false && hdow === true ) {
