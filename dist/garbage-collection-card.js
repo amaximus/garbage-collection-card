@@ -26,10 +26,10 @@ class GarbageCollectionCard extends HTMLElement {
 
       return {
         friendly_name: entityState.attributes['friendly_name'],
-        next_date,
-        days,
+        next_date: next_date,
+        days: days,
         icon: entityState.attributes['icon'],
-        alerted,
+        alerted: alerted,
         last_collection: entityState.attributes['last_collection'] || null,
       };
     }
@@ -69,6 +69,8 @@ class GarbageCollectionCard extends HTMLElement {
       title_size: '17px',
       details_size: '14px',
       hide_on_today: false,
+      hide_dow: true,
+      dow_format: 'long',
     };
 
     const cardConfig = {
@@ -143,7 +145,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = "none";
   }
 
-  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick, htitle, hicon) {
+  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick, htitle, hicon, hdow, dowfmt) {
     const root = this.shadowRoot;
     var today = new Date()
     var todayYYYYMMDD = today.toISOString().split("T")[0];
@@ -156,19 +158,22 @@ class GarbageCollectionCard extends HTMLElement {
     }
 
     root.getElementById('friendly_name').innerHTML = attributes.friendly_name;
+    var dow = new Date(attributes.next_date).toLocaleString(this.llocale, {weekday: dowfmt})
 
     if (parseInt(attributes.days) < 2) {
       if (duetxt === true) {
         root.getElementById('details').innerHTML = attributes.next_date;
       } else {
         root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
+            (hdow === false ? ' ' + dow + (hdays === false ? ',' : '') : '' ) +
             (hdays === false ? ' ' + attributes.days : '' )
       }
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
+            (hdow === false ? ' ' + dow + (hdays === false ? ',' : '') : '' ) +
             (hdays === false ? ' ' + attributes.days : '' )
     }
-    if ( hdays === true && hdate === true && duetxt === false ) {
+    if ( hdays === true && hdate === true && duetxt === false && hdow === true ) {
       root.getElementById('details').style.display = "none";
     }
 
@@ -208,7 +213,7 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     this.myhass = hass;
 
-    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title, hide_on_today } = config;
+    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title, hide_on_today, hide_dow, dow_format } = config;
     let hide_card = false;
 
     if (!this._firstLoad) {
@@ -302,7 +307,7 @@ class GarbageCollectionCard extends HTMLElement {
         }
       }
     }
-    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click, hide_title, hide_icon);
+    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click, hide_title, hide_icon, hide_dow, dow_format);
   }
 
   getCardSize() {
