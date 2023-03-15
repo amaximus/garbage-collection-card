@@ -29,6 +29,7 @@ class GarbageCollectionCard extends HTMLElement {
         friendly_name: entityState.attributes['friendly_name'],
         next_date: next_date,
         days: days,
+        daysstr: days,
         icon: entityState.attributes['icon'],
         alerted: alerted,
         last_collection: entityState.attributes['last_collection'] || null,
@@ -39,6 +40,7 @@ class GarbageCollectionCard extends HTMLElement {
       friendly_name: '',
       next_date: '',
       days: '',
+      daysstr: '',
       icon: '',
       alerted: '',
       last_collection: null,
@@ -168,12 +170,12 @@ class GarbageCollectionCard extends HTMLElement {
       } else {
         root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdow === false ? ' ' + attributes.dow + (hdays === false ? ',' : '') : '' ) +
-            (hdays === false ? ' ' + attributes.days : '' )
+            (hdays === false ? ' ' + attributes.daysstr : '' )
       }
     } else {
       root.getElementById('details').innerHTML = (hdate === false ? attributes.next_date : '') +
             (hdow === false ? ' ' + attributes.dow + (hdays === false ? ',' : '') : '' ) +
-            (hdays === false ? ' ' + attributes.days : '' )
+            (hdays === false ? ' ' + attributes.daysstr : '' )
     }
     if ( hdays === true && hdate === true && duetxt === false && hdow === true ) {
       root.getElementById('details').style.display = "none";
@@ -294,18 +296,18 @@ class GarbageCollectionCard extends HTMLElement {
           } else {
             if ( typeof this.translationJSONobj != "undefined"
               && typeof this.translationJSONobj.other['in_days'] !== "undefined" ) {
-                attributes.days = this.translationJSONobj.other['in_days'].replace('DAYS', attributes.days);
+                attributes.daysstr = this.translationJSONobj.other['in_days'].replace('DAYS', attributes.days);
             } else {
-              attributes.days = `in ${attributes.days} days`;
+              attributes.daysstr = `in ${attributes.days} days`;
             }
           }
         }
       } else { // attributes.days >= 2
         if ( typeof this.translationJSONobj != "undefined"
           && typeof this.translationJSONobj.other['in_days'] !== "undefined" ) {
-            attributes.days = this.translationJSONobj.other['in_days'].replace('DAYS', attributes.days);
+            attributes.daysstr = this.translationJSONobj.other['in_days'].replace('DAYS', attributes.days);
         } else {
-          attributes.days = `in ${attributes.days} days`;
+          attributes.daysstr = `in ${attributes.days} days`;
         }
       }
     }
