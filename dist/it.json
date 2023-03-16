@@ -6,8 +6,8 @@
         "Tomorrow": "Domani"
     },
     "other": {
-      "due": "da fare",
-      "Due": "Da fare",
+      "due": "per",
+      "Due": "Per",
       "due_today_order": "true",
       "in_days": "in DAYS giorni"
     }
