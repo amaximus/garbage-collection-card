@@ -46,13 +46,20 @@ Configuration parameters:<br />
 | hide_title | **Y** | `false`| hide title. |
 | title_size | **Y** | `17px` | font size for the sensor's friendly name.|
 | details_size | **Y** | `14px` | font size for date and number of days.|
+| source | **Y** | `Garbage-Collection` | source of garbage collection data. |
 ---
 
-Garbage collection cards support some languages and display the date information based on your locale setting by default.
-You may override this to use the language set in HASS for displaying its frontend.
-
+`source` for garbage collection data supports fully [Garbage-Collection](https://github.com/bruxy70/Garbage-Collection).
 When garbage-collection sensors are used with verbose_state=True, hide_date and hide_days will be discarded,
 displayed text will be taken from the sensor's verbose_format.
+
+Since Garbage-Collection custom integration has ended its support, a limited support for
+[hacs_waste_collection_schedule](https://github.com/mampfes/hacs_waste_collection_schedule) has been added. Such sensor
+should have its state set to `{{ value.daysTo }}` and `details_format` set to `generic`. If the sensor doesn't limit the
+type of garbage, the first one with the nearest due date will be displayed. See examples below.
+
+Garbage collection card supports some languages and displays the date information based on your locale setting by default.
+You may override this to use the language set in HASS for displaying its frontend.
 
 When garbage collection is today or tomorrow, clicking on the card you can acknowledge that the
 garbage was prepared or collected and the card will be hidden until the day after due day or if hide_before
@@ -68,7 +75,10 @@ resources:
   - {type: module, url: '/local/garbage-collection-card.js'}
 ```
 
-Please find below an example of ui-lovelace.yaml (entity should be the sensor of garbage_collection platform you defined):
+### EXamples
+
+Please find below an example of ui-lovelace.yaml for a sensor with data coming from Garbage-Collection custom integration
+(entity should be the sensor of garbage_collection platform you defined):
 
 ```
     cards:
@@ -88,6 +98,24 @@ Basic card:<br />
 
 Different icon sizes and colors:<br />
 ![Different icon sizes](garbage_collection_difsize.jpg)
+
+Example of card for a sensor configured with hacs_waste_collection_schedule custom integration:
+
+```
+    cards:
+      - type: custom:garbage-collection-card
+        source: 'hacs_waste_collection_schedule'
+        entity: sensor.next_collection
+```
+Supported sensor configuration:
+```
+platform: waste_collection_schedule
+name: next_collection
+details_format: 'generic'
+value_template: '{{ value.daysTo }}'
+### leadtime just limits the number of items to handle
+leadtime: 10
+```
 
 ## Thanks
 

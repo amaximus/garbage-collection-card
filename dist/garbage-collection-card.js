@@ -11,40 +11,62 @@ class GarbageCollectionCard extends HTMLElement {
   }
 
   _getAttributes(hass, entity_id) {
-    var entityState = hass.states[entity_id];
+    let alerted = '';
+    let date_option = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    let date_tmp = '';
+    let days = '';
+    let ddiff = 0;
+    let dow = '';
+    let entityState = hass.states[entity_id];
+    let friendly_name = '';
+    let icon = '';
+    let last_collection = null;
+    let next_date = '';
+    let tmp_date = '';
 
-    if (entityState && entityState.attributes['next_date']) {
-      var date_option = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    if (entityState && this.source != undefined) {
+      friendly_name = entityState.attributes['friendly_name'];
+      icon = entityState.attributes['icon'];
+      if (this.source === "Garbage-Collection" && entityState.attributes['next_date']) {
+        date_tmp = new Date(entityState.attributes['next_date']);
+        next_date = new Intl.DateTimeFormat(this.llocale, date_option).format(
+          date_tmp
+        );
+        dow = date_tmp.toLocaleString(this.llocale, {weekday: this._config.dow_format})
 
-      var date_tmp = new Date(entityState.attributes['next_date']);
-      var next_date = new Intl.DateTimeFormat(this.llocale, date_option).format(
-        date_tmp
-      );
-      var dow = date_tmp.toLocaleString(this.llocale, {weekday: this._config.dow_format})
+        days = entityState.attributes['days'];
+        alerted = days < 1 ? 'alerted' : days < 2 ? 'alerted_1' : '';
+        last_collection = entityState.attributes['last_collection'];
 
-      var days = entityState.attributes['days'];
-      var alerted = days < 1 ? 'alerted' : days < 2 ? 'alerted_1' : '';
+      } else if (this.source === "hacs_waste_collection_schedule") {
+        days = entityState.state;
 
-      return {
-        friendly_name: entityState.attributes['friendly_name'],
-        next_date: next_date,
-        days: days,
-        daysstr: days,
-        icon: entityState.attributes['icon'],
-        alerted: alerted,
-        last_collection: entityState.attributes['last_collection'] || null,
-        dow: dow,
-      };
+        alerted = days < 1 ? 'alerted' : days < 2 ? 'alerted_1' : '';
+        var today = new Date()
+        for (var k=0; k < entityState.attributes.upcoming.length; k++) {
+          tmp_date = new Date(entityState.attributes.upcoming[k].date);
+          ddiff = (tmp_date - today) / (1000 * 3600 * 24) + 1 | 0;
+          if( ddiff == days ) {
+            date_tmp = new Date(entityState.attributes.upcoming[k].date);
+            friendly_name = entityState.attributes.upcoming[k].type;
+            break;
+          }
+        }
+        next_date = new Intl.DateTimeFormat(this.llocale, date_option).format(
+          date_tmp
+        );
+        dow = date_tmp.toLocaleString(this.llocale, {weekday: this._config.dow_format})
+      }
     }
     return {
-      friendly_name: '',
-      next_date: '',
-      days: '',
-      daysstr: '',
-      icon: '',
-      alerted: '',
-      last_collection: null,
-      dow: '',
+      friendly_name: friendly_name,
+      next_date: next_date,
+      days: days,
+      daysstr: days,
+      icon: icon,
+      alerted: alerted,
+      last_collection: last_collection,
+      dow: dow,
     };
   }
 
@@ -76,6 +98,7 @@ class GarbageCollectionCard extends HTMLElement {
       hide_on_today: false,
       hide_dow: true,
       dow_format: 'long',
+      source: 'Garbage-Collection'
     };
 
     const cardConfig = {
@@ -150,7 +173,7 @@ class GarbageCollectionCard extends HTMLElement {
     this.style.display = "none";
   }
 
-  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick, htitle, hicon, hdow, dowfmt) {
+  _updateContent(attributes, hdate, hdays, hcard, duetxt, honclick, htitle, hicon, hdow, dowfmt, src) {
     const root = this.shadowRoot;
     var today = new Date()
     var todayYYYYMMDD = today.toISOString().split("T")[0];
@@ -158,7 +181,7 @@ class GarbageCollectionCard extends HTMLElement {
     root.getElementById('ha_icon').icon = attributes.icon;
     root.getElementById('ha_icon').className = attributes.alerted;
 
-    if (parseInt(attributes.days) < 2 && honclick) {
+    if (src === 'Garbage-Collection' && parseInt(attributes.days) < 2 && honclick) {
       root.getElementById('ha_card').addEventListener('click', this._ackGarbageOut.bind(this));
     }
 
@@ -217,7 +240,7 @@ class GarbageCollectionCard extends HTMLElement {
     const root = this.shadowRoot;
     this.myhass = hass;
 
-    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title, hide_on_today, hide_dow, dow_format } = config;
+    let { hide_date, hide_days, hide_before, due_txt, hide_on_click, hide_icon, hide_title, hide_on_today, hide_dow, dow_format, source } = config;
     let hide_card = false;
 
     if (!this._firstLoad) {
@@ -311,7 +334,8 @@ class GarbageCollectionCard extends HTMLElement {
         }
       }
     }
-    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click, hide_title, hide_icon, hide_dow, dow_format);
+    this.source = source;
+    this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click, hide_title, hide_icon, hide_dow, dow_format, source);
   }
 
   getCardSize() {
