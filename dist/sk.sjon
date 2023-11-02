@@ -1,0 +1,14 @@
+{
+    "state": {
+        "today": "dnes",
+        "tomorrow": "zajtra",
+        "Today": "dnes",
+        "Tomorrow": "zajtra"
+    },
+    "other": {
+        "due": "očakávané",
+        "Due": "Očakávané",
+        "due_today_order": "true",
+        "in_days": "o DAYS dni"
+    }
+}
