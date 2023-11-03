@@ -246,6 +246,8 @@ class GarbageCollectionCard extends HTMLElement {
     if (!this._firstLoad) {
       this._firstLoad = true;
 
+      this.source = source;
+      
       this.llocale = window.navigator.userLanguage || window.navigator.language;
       if (config.hass_lang_priority) {
         this.llocale = this.myhass.language;
@@ -334,7 +336,7 @@ class GarbageCollectionCard extends HTMLElement {
         }
       }
     }
-    this.source = source;
+    
     this._updateContent(attributes, hide_date, hide_days, hide_card, due_txt, hide_on_click, hide_title, hide_icon, hide_dow, dow_format, source);
   }
 
