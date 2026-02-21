@@ -7,6 +7,8 @@
 
 [Garbage Collection custom integration](https://github.com/bruxy70/Garbage-Collection/), which this custom card has been originally written for, ended support at the begining of 2023. Features supporting [HACS Waste Collection Schedule](https://github.com/mampfes/hacs_waste_collection_schedule) are partial compared to features of Garbage Collection and these can be covered and even surpassed by using the flexible [Custom Button Card](https://github.com/custom-cards/button-card), input boolean and conditional card. Therefore I will end developing and supporting this card after February 2026.
 
+##
+
 #### Description
 
 This Lovelace custom card displays garbage collection information provided by
