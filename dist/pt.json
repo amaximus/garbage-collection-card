@@ -1,0 +1,14 @@
+{
+    "state": {
+        "today": "hoje",
+        "tomorrow": "amanhã",
+        "Today": "Hoje",
+        "Tomorrow": "Amanhã"
+    },
+    "other": {
+        "due": "exatamente",
+        "Due": "Exatamente",
+        "due_today_order": "Verdadeiro",
+        "in_days": "nos dias"
+    }
+}
